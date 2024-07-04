@@ -1,25 +1,13 @@
-package com.careerhub.model;
+package com.careerhub.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Generated;
-import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.time.LocalDate;
-
-
-@Document("users")
-public class User {
-    @Id
+public class UserRegisterRequest {
     private String id;
     private String name;
     private String surname;
     private String email;
     private String password;
 
-    public User(String name, String surname, String email, String password) {
+    public UserRegisterRequest(String name, String surname, String email, String password) {
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -66,6 +54,6 @@ public class User {
         this.password = password;
     }
 
-    public User() {
+    public UserRegisterRequest() {
     }
 }
