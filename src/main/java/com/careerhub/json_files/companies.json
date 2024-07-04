@@ -1,0 +1,72 @@
+[
+  {
+    "id": "1",
+    "companyName": "Tech Innovators Inc.",
+    "field": "Technology",
+    "location": "San Francisco, CA",
+    "companyDescription": "Leading tech company specializing in innovative solutions and software development."
+  },
+  {
+    "id": "2",
+    "companyName": "HealthCare Solutions Ltd.",
+    "field": "Healthcare",
+    "location": "New York, NY",
+    "companyDescription": "Providing cutting-edge healthcare solutions and services to improve patient care."
+  },
+  {
+    "id": "3",
+    "companyName": "Green Energy Corp.",
+    "field": "Energy",
+    "location": "Austin, TX",
+    "companyDescription": "Focused on developing renewable energy sources and sustainable energy solutions."
+  },
+  {
+    "id": "4",
+    "companyName": "EduTech Global",
+    "field": "Education",
+    "location": "Boston, MA",
+    "companyDescription": "Offering innovative educational technologies and e-learning platforms."
+  },
+  {
+    "id": "5",
+    "companyName": "FinServe Banking",
+    "field": "Finance",
+    "location": "Chicago, IL",
+    "companyDescription": "Providing comprehensive banking and financial services to clients worldwide."
+  },
+  {
+    "id": "6",
+    "companyName": "AutoWorks Manufacturing",
+    "field": "Manufacturing",
+    "location": "Detroit, MI",
+    "companyDescription": "Leading manufacturer of automotive parts and components for global markets."
+  },
+  {
+    "id": "7",
+    "companyName": "RetailHub Stores",
+    "field": "Retail",
+    "location": "Seattle, WA",
+    "companyDescription": "Retail chain offering a wide range of products from groceries to electronics."
+  },
+  {
+    "id": "8",
+    "companyName": "TravelEase Agency",
+    "field": "Travel",
+    "location": "Orlando, FL",
+    "companyDescription": "Providing top-notch travel services and vacation packages around the world."
+  },
+  {
+    "id": "9",
+    "companyName": "AgriGrowth Industries",
+    "field": "Agriculture",
+    "location": "Des Moines, IA",
+    "companyDescription": "Specializing in innovative agricultural solutions and farming technologies."
+  },
+  {
+    "id": "10",
+    "companyName": "MediaPro Entertainment",
+    "field": "Entertainment",
+    "location": "Los Angeles, CA",
+    "companyDescription": "Leading entertainment company producing films, TV shows, and digital content."
+  }
+]

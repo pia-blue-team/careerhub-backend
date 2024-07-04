@@ -21,7 +21,8 @@ public class Job {
     private LocalDate applicationDeadline;
     private String position;
     private String jobDescription;
+    private String companyId;
+    //    @DBRef
+//    private Company company;
 
-    @DBRef
-    private Company company;
 }

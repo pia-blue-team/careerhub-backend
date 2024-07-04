@@ -15,4 +15,8 @@ public class CompanyService {
     public List<Company> findAllCompanies(){
         return companyRepository.findAll();
     }
+
+    public List<Company> searchCompaniesByName(String companyName){
+        return companyRepository.findByCompanyNameContainingIgnoreCase(companyName);
+    }
 }

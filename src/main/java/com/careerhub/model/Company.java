@@ -11,8 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor
 @Document("companies")
 public class Company {
-    @Id
-    private String id;
+    private String companyId;
     private String companyName;
     private String field;
     private String location;

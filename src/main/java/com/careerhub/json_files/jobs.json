@@ -1,0 +1,272 @@
+[
+  {
+    "id": "1",
+    "jobTitle": "Software Engineer",
+    "applicationBeginningDate": "2023-07-01",
+    "applicationDeadline": "2023-09-01",
+    "position": "Full-time",
+    "jobDescription": "Develop and maintain software applications.",
+    "companyId": "1"
+  },
+  {
+    "id": "2",
+    "jobTitle": "Product Manager",
+    "applicationBeginningDate": "2023-08-01",
+    "applicationDeadline": "2023-10-01",
+    "position": "Full-time",
+    "jobDescription": "Oversee product development from inception to launch.",
+    "companyId": "1"
+  },
+  {
+    "id": "3",
+    "jobTitle": "UI/UX Designer",
+    "applicationBeginningDate": "2023-07-15",
+    "applicationDeadline": "2023-09-15",
+    "position": "Contract",
+    "jobDescription": "Design user interfaces and improve user experiences.",
+    "companyId": "1"
+  },
+  {
+    "id": "4",
+    "jobTitle": "Nurse Practitioner",
+    "applicationBeginningDate": "2023-07-10",
+    "applicationDeadline": "2023-08-10",
+    "position": "Full-time",
+    "jobDescription": "Provide primary and specialty healthcare.",
+    "companyId": "2"
+  },
+  {
+    "id": "5",
+    "jobTitle": "Healthcare Administrator",
+    "applicationBeginningDate": "2023-07-20",
+    "applicationDeadline": "2023-09-20",
+    "position": "Full-time",
+    "jobDescription": "Manage healthcare facilities and services.",
+    "companyId": "2"
+  },
+  {
+    "id": "6",
+    "jobTitle": "Medical Assistant",
+    "applicationBeginningDate": "2023-08-01",
+    "applicationDeadline": "2023-09-30",
+    "position": "Part-time",
+    "jobDescription": "Assist with clinical and administrative tasks.",
+    "companyId": "2"
+  },
+  {
+    "id": "7",
+    "jobTitle": "Renewable Energy Engineer",
+    "applicationBeginningDate": "2023-07-05",
+    "applicationDeadline": "2023-09-05",
+    "position": "Full-time",
+    "jobDescription": "Design and develop renewable energy projects.",
+    "companyId": "3"
+  },
+  {
+    "id": "8",
+    "jobTitle": "Environmental Scientist",
+    "applicationBeginningDate": "2023-08-15",
+    "applicationDeadline": "2023-10-15",
+    "position": "Full-time",
+    "jobDescription": "Conduct research on environmental impact and solutions.",
+    "companyId": "3"
+  },
+  {
+    "id": "9",
+    "jobTitle": "Project Manager",
+    "applicationBeginningDate": "2023-07-25",
+    "applicationDeadline": "2023-09-25",
+    "position": "Contract",
+    "jobDescription": "Manage and oversee renewable energy projects.",
+    "companyId": "3"
+  },
+  {
+    "id": "10",
+    "jobTitle": "Educational Consultant",
+    "applicationBeginningDate": "2023-07-12",
+    "applicationDeadline": "2023-09-12",
+    "position": "Part-time",
+    "jobDescription": "Provide educational consulting services.",
+    "companyId": "4"
+  },
+  {
+    "id": "11",
+    "jobTitle": "E-learning Developer",
+    "applicationBeginningDate": "2023-08-10",
+    "applicationDeadline": "2023-10-10",
+    "position": "Full-time",
+    "jobDescription": "Develop and maintain e-learning platforms.",
+    "companyId": "4"
+  },
+  {
+    "id": "12",
+    "jobTitle": "Curriculum Designer",
+    "applicationBeginningDate": "2023-07-20",
+    "applicationDeadline": "2023-09-20",
+    "position": "Contract",
+    "jobDescription": "Design educational curriculums and content.",
+    "companyId": "4"
+  },
+  {
+    "id": "13",
+    "jobTitle": "Financial Analyst",
+    "applicationBeginningDate": "2023-07-18",
+    "applicationDeadline": "2023-09-18",
+    "position": "Full-time",
+    "jobDescription": "Analyze financial data and trends.",
+    "companyId": "5"
+  },
+  {
+    "id": "14",
+    "jobTitle": "Bank Teller",
+    "applicationBeginningDate": "2023-08-05",
+    "applicationDeadline": "2023-10-05",
+    "position": "Part-time",
+    "jobDescription": "Assist customers with banking transactions.",
+    "companyId": "5"
+  },
+  {
+    "id": "15",
+    "jobTitle": "Loan Officer",
+    "applicationBeginningDate": "2023-07-25",
+    "applicationDeadline": "2023-09-25",
+    "position": "Full-time",
+    "jobDescription": "Evaluate and approve loan applications.",
+    "companyId": "5"
+  },
+  {
+    "id": "16",
+    "jobTitle": "Mechanical Engineer",
+    "applicationBeginningDate": "2023-07-22",
+    "applicationDeadline": "2023-09-22",
+    "position": "Full-time",
+    "jobDescription": "Design and develop automotive parts.",
+    "companyId": "6"
+  },
+  {
+    "id": "17",
+    "jobTitle": "Production Supervisor",
+    "applicationBeginningDate": "2023-08-12",
+    "applicationDeadline": "2023-10-12",
+    "position": "Full-time",
+    "jobDescription": "Oversee manufacturing processes and operations.",
+    "companyId": "6"
+  },
+  {
+    "id": "18",
+    "jobTitle": "Quality Control Inspector",
+    "applicationBeginningDate": "2023-07-28",
+    "applicationDeadline": "2023-09-28",
+    "position": "Contract",
+    "jobDescription": "Ensure the quality of manufactured products.",
+    "companyId": "6"
+  },
+  {
+    "id": "19",
+    "jobTitle": "Retail Sales Associate",
+    "applicationBeginningDate": "2023-07-14",
+    "applicationDeadline": "2023-09-14",
+    "position": "Part-time",
+    "jobDescription": "Assist customers and manage sales.",
+    "companyId": "7"
+  },
+  {
+    "id": "20",
+    "jobTitle": "Store Manager",
+    "applicationBeginningDate": "2023-08-20",
+    "applicationDeadline": "2023-10-20",
+    "position": "Full-time",
+    "jobDescription": "Manage store operations and staff.",
+    "companyId": "7"
+  },
+  {
+    "id": "21",
+    "jobTitle": "Inventory Specialist",
+    "applicationBeginningDate": "2023-07-30",
+    "applicationDeadline": "2023-09-30",
+    "position": "Contract",
+    "jobDescription": "Manage and track inventory levels.",
+    "companyId": "7"
+  },
+  {
+    "id": "22",
+    "jobTitle": "Travel Consultant",
+    "applicationBeginningDate": "2023-07-08",
+    "applicationDeadline": "2023-09-08",
+    "position": "Full-time",
+    "jobDescription": "Provide travel advice and booking services.",
+    "companyId": "8"
+  },
+  {
+    "id": "23",
+    "jobTitle": "Tour Guide",
+    "applicationBeginningDate": "2023-08-18",
+    "applicationDeadline": "2023-10-18",
+    "position": "Part-time",
+    "jobDescription": "Guide tourists and provide information on attractions.",
+    "companyId": "8"
+  },
+  {
+    "id": "24",
+    "jobTitle": "Travel Agent",
+    "applicationBeginningDate": "2023-07-29",
+    "applicationDeadline": "2023-09-29",
+    "position": "Full-time",
+    "jobDescription": "Plan and book travel arrangements for clients.",
+    "companyId": "8"
+  },
+  {
+    "id": "25",
+    "jobTitle": "Agricultural Engineer",
+    "applicationBeginningDate": "2023-07-03",
+    "applicationDeadline": "2023-09-03",
+    "position": "Full-time",
+    "jobDescription": "Develop and improve farming equipment.",
+    "companyId": "9"
+  },
+  {
+    "id": "26",
+    "jobTitle": "Farm Manager",
+    "applicationBeginningDate": "2023-08-25",
+    "applicationDeadline": "2023-10-25",
+    "position": "Full-time",
+    "jobDescription": "Manage farm operations and staff.",
+    "companyId": "9"
+  },
+  {
+    "id": "27",
+    "jobTitle": "Agronomist",
+    "applicationBeginningDate": "2023-07-17",
+    "applicationDeadline": "2023-09-17",
+    "position": "Contract",
+    "jobDescription": "Conduct research on crop production and soil management.",
+    "companyId": "9"
+  },
+  {
+    "id": "28",
+    "jobTitle": "Film Producer",
+    "applicationBeginningDate": "2023-07-26",
+    "applicationDeadline": "2023-09-26",
+    "position": "Full-time",
+    "jobDescription": "Oversee the production of films and TV shows.",
+    "companyId": "10"
+  },
+  {
+    "id": "29",
+    "jobTitle": "Screenwriter",
+    "applicationBeginningDate": "2023-08-14",
+    "applicationDeadline": "2023-10-14",
+    "position": "Contract",
+    "jobDescription": "Write scripts for films and TV shows.",
+    "companyId": "10"
+  },
+  {
+    "id": "30",
+    "jobTitle": "Marketing Specialist",
+    "applicationBeginningDate": "2023-07-09",
+    "applicationDeadline": "2023-09-09",
+    "position": "Full-time",
+    "jobDescription": "Develop and implement marketing strategies.",
+    "companyId": "10"
+  }
+]
