@@ -1,0 +1,23 @@
+package com.careerhub.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.time.LocalDate;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Document("jobs")
+public class Job {
+    @Id
+    private String id;
+    private String jobTitle;
+    private LocalDate applicationBeginningDate;
+    private LocalDate applicationDeadline;
+    private String position;
+    private String jobDescription;
+}
