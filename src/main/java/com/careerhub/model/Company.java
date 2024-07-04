@@ -16,4 +16,5 @@ public class Company {
     private String companyName;
     private String field;
     private String location;
+    private String companyDescription;
 }
