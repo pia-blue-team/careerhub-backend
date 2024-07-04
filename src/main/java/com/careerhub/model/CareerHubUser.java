@@ -1,4 +1,4 @@
-package com.careerhub;
+package com.careerhub.model;
 
 import lombok.Builder;
 import lombok.Data;

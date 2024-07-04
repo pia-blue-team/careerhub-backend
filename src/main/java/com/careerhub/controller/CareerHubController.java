@@ -1,5 +1,7 @@
-package com.careerhub;
+package com.careerhub.controller;
 
+import com.careerhub.model.CareerHubUser;
+import com.careerhub.service.CareerHubUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

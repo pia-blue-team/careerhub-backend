@@ -1,5 +1,7 @@
-package com.careerhub;
+package com.careerhub.service;
 
+import com.careerhub.model.CareerHubUser;
+import com.careerhub.repository.CareerHubUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
