@@ -14,8 +14,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Document("jobs")
 public class Job {
-    @Id
-    private String id;
+
+    private String jobId;
     private String jobTitle;
     private LocalDate applicationBeginningDate;
     private LocalDate applicationDeadline;

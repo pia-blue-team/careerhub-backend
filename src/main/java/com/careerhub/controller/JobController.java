@@ -24,7 +24,7 @@ public class JobController {
     public ResponseEntity<CustomCompanyJobsResponse> getJobsByCompanyId(@PathVariable String companyId){
         List<Job> jobsOfCompany = jobService.getJobsByCompanyId(companyId);
         Optional<Company> companyOpt = jobService.getCompanyById(companyId);
-        System.out.println(companyOpt);
+        //System.out.println(companyOpt);
 
         if (companyOpt.isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -34,5 +34,16 @@ public class JobController {
 
         CustomCompanyJobsResponse response = new CustomCompanyJobsResponse(company, jobsOfCompany);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/jobdetails/{jobId}")
+    public ResponseEntity<Job> getJobByJobId(@PathVariable String jobId){
+        Optional<Job> jobOpt = jobService.getJobById(jobId);
+        if (jobOpt.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+
+        Job job = jobOpt.get();
+        return ResponseEntity.ok(job);
     }
 }

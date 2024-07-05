@@ -23,6 +23,11 @@ public class JobService {
     }
 
     public Optional<Company> getCompanyById(String companyId) {
+
         return companyRepository.findByCompanyId(companyId);
+    }
+
+    public Optional<Job> getJobById(String jobId){
+        return jobRepository.findByJobId(jobId);
     }
 }

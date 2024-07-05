@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/careerhub")
@@ -29,6 +31,12 @@ public class CompanyController {
     public ResponseEntity<List<Company>> searchCompanies(@RequestParam("companyName") String companyName){
         List<Company> companies = companyService.searchCompaniesByName(companyName);
         return ResponseEntity.ok(companies);
+    }
+
+    @GetMapping("/companies/distinct-fields")
+    public ResponseEntity<List<String>> getDistinctFields() {
+        List<String> distinctFields = companyService.getDistinctFields();
+        return ResponseEntity.ok(distinctFields);
     }
 
 }
