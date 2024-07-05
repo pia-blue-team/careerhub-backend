@@ -3,6 +3,8 @@ package com.careerhub.service;
 import com.careerhub.model.Company;
 import com.careerhub.repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,6 +18,12 @@ public class CompanyService {
 
     public List<Company> findAllCompanies(){
         return companyRepository.findAll();
+    }
+
+    public List<Company> getFirstNCompanies(int companyNo) {
+        PageRequest pageRequest = PageRequest.of(0, companyNo);
+        Page<Company> page = companyRepository.findAll(pageRequest);
+        return page.getContent();
     }
 
     public List<Company> searchCompaniesByName(String companyName){

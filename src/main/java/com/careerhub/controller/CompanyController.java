@@ -27,6 +27,12 @@ public class CompanyController {
         return ResponseEntity.ok(companies);
     }
 
+    @GetMapping("/first-n-companies")
+    public ResponseEntity<List<Company>> getFirst8Companies(@RequestParam("companyNo") int companyNo) {
+        List<Company> companies = companyService.getFirstNCompanies(companyNo);
+        return ResponseEntity.ok(companies);
+    }
+
     @GetMapping("/searchCompany")
     public ResponseEntity<List<Company>> searchCompanies(@RequestParam("companyName") String companyName){
         List<Company> companies = companyService.searchCompaniesByName(companyName);
