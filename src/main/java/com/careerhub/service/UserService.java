@@ -59,7 +59,6 @@ public class UserService {
 
         return userRepository.save(user);
     }
-
     public Optional<User> getUserByUserId(int id){
         return userRepository.findUserByUserId(id);
     }
