@@ -5,11 +5,17 @@ import com.careerhub.repository.UserRepository;
 import com.careerhub.request.UserRegisterRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Service
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private FileStorageService fileStorageService;
 
     public boolean createNewUser(UserRegisterRequest userRegisterRequest){
         User newUser = new User();
@@ -34,5 +40,20 @@ public class UserService {
 
     public User findByEmailAndPassword(String email,String password) {
         return userRepository.findByEmailAndPassword(email,password);
+    }
+
+    public User saveUserWithCv(String firstName, String lastName, String password,String email, MultipartFile cvFile) throws IOException {
+        // Store the file and get the relative path
+        String cvPath = fileStorageService.storeFile(cvFile, firstName, lastName);
+
+        // Create and save user
+        User user = new User();
+        user.setName(firstName);
+        user.setSurname(lastName);
+        user.setPassword(password);
+        user.setEmail(email);
+        user.setCvPath(cvPath);
+
+        return userRepository.save(user);
     }
 }
