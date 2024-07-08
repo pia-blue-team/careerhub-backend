@@ -30,6 +30,10 @@ public class CompanyService {
         return companyRepository.findByCompanyNameContainingIgnoreCase(companyName);
     }
 
+    public List<Company> findCompaniesByField(String field){
+        return companyRepository.findByField(field);
+    }
+
     public List<String> findDistinctFields(){
         List<Company> companies = companyRepository.findAll();
         List<String> fields = new ArrayList<>();

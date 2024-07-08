@@ -18,6 +18,8 @@ public interface CompanyRepository extends MongoRepository<Company, String> {
     List<Company> findByCompanyNameContainingIgnoreCase(String companyName);
     Optional<Company> findByCompanyId(String companyId);
 
+    List<Company> findByField(String field);
+
     Page<Company> findAll(Pageable pageable);
 
     @Query(value = "{}", fields = "{ 'field': 1 }")

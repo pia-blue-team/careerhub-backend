@@ -1,20 +1,15 @@
 package com.careerhub.controller;
 
 import com.careerhub.model.Company;
-import com.careerhub.repository.CompanyRepository;
 import com.careerhub.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 @RequestMapping("/careerhub")
@@ -46,4 +41,13 @@ public class CompanyController {
         return ResponseEntity.ok(distinctFields);
     }
 
+    @GetMapping("/getfield")
+    public ResponseEntity<List<Company>> searchFields(@RequestParam("field") String field){
+        List<Company> companiesWithSearchedField = companyService.findCompaniesByField(field);
+
+        if (companiesWithSearchedField.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(companiesWithSearchedField);
+    }
 }
