@@ -19,15 +19,21 @@ public class User {
     private String password;
     private String cvPath;
 
+    private String aboutUser;
 
-    public User(String name, String surname, String email, String password, String cvPath) {
+    private String currentRole;
+
+
+    public User(String name, String surname, String email, String password, String aboutUser, String currentRole, String cvPath) {
         userCounter++;
+        this.userId = userCounter;
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.password = password;
+        this.aboutUser = aboutUser;
+        this.currentRole = currentRole;
         this.cvPath = cvPath;
-        this.userId = userCounter;
     }
 
     public int getUserId() {
@@ -80,6 +86,22 @@ public class User {
 
     public void setCvPath(String cvPath) {
         this.cvPath = cvPath;
+    }
+
+    public String getAboutUser() {
+        return aboutUser;
+    }
+
+    public void setAboutUser(String aboutUser) {
+        this.aboutUser = aboutUser;
+    }
+
+    public String getCurrentRole() {
+        return currentRole;
+    }
+
+    public void setCurrentRole(String currentRole) {
+        this.currentRole = currentRole;
     }
 
     public User() {

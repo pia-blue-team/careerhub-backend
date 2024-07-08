@@ -60,10 +60,12 @@ public class UserController {
             @RequestParam("lastName") String lastName,
             @RequestParam("email") String email,
             @RequestParam("password") String password,
+            @RequestParam("aboutUser") String aboutUser,
+            @RequestParam("currentRole") String currentRole,
             @RequestParam("cvFile") MultipartFile cvFile) {
 
         try {
-            User user = userService.saveUserWithCv(firstName,lastName,email, password, cvFile);
+            User user = userService.saveUserWithCv(firstName, lastName, email, password, aboutUser, currentRole, cvFile);
             return ResponseEntity.ok(user);
         } catch (IOException e) {
             return ResponseEntity.status(500).body(null);

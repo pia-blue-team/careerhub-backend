@@ -45,12 +45,12 @@ public class UserService {
         return userRepository.findByEmailAndPassword(email,password);
     }
 
-    public User saveUserWithCv(String firstName, String lastName, String password,String email, MultipartFile cvFile) throws IOException {
+    public User saveUserWithCv(String firstName, String lastName, String password,String email, String aboutUser, String currentRole, MultipartFile cvFile) throws IOException {
         // Store the file and get the relative path
         String cvPath = fileStorageService.storeFile(cvFile, firstName, lastName);
 
         // Create and save user
-        User user = new User(firstName, lastName, email, password, cvPath);
+        User user = new User(firstName, lastName, email, password, aboutUser, currentRole, cvPath);
 //        user.setName(firstName);
 //        user.setSurname(lastName);
 //        user.setPassword(password);
