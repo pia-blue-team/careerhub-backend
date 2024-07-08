@@ -1,6 +1,7 @@
 package com.careerhub.controller;
 
 import com.careerhub.model.User;
+import com.careerhub.request.UserLoginRequest;
 import com.careerhub.request.UserRegisterRequest;
 import com.careerhub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,12 +44,14 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody User user){
-        User existingUser = userService.getUserByEmail(user.getEmail());
-        if(existingUser != null && user.getPassword().equals(existingUser.getPassword())){
-            return ResponseEntity.ok().body("Login successful");
+    public ResponseEntity<Integer> login(@RequestBody UserLoginRequest loginRequest) {
+        User existingUser = userService.getUserByEmail(loginRequest.getEmail());
+
+        if (existingUser != null && loginRequest.getPassword().equals(existingUser.getPassword())){
+            return ResponseEntity.ok().body(existingUser.getUserId());
         }
-        return ResponseEntity.status(401).body("Invalid email or password");
+
+        return ResponseEntity.status(401).body(null);
     }
 
     @PostMapping("/upload-cv")

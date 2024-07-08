@@ -30,6 +30,10 @@ public class User {
         this.userId = userCounter;
     }
 
+    public int getUserId() {
+        return this.userId;
+    }
+
     public String getId() {
         return id;
     }
