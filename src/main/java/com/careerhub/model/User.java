@@ -4,6 +4,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Document("users")
@@ -22,6 +24,8 @@ public class User {
     private String aboutUser;
 
     private String currentRole;
+
+    private List<String> appliedJobIds = new ArrayList<>();
 
 
     public User(String name, String surname, String email, String password, String aboutUser, String currentRole, String cvPath) {
@@ -102,6 +106,14 @@ public class User {
 
     public void setCurrentRole(String currentRole) {
         this.currentRole = currentRole;
+    }
+
+    public List<String> getAppliedJobIds() {
+        return appliedJobIds;
+    }
+
+    public void setAppliedJobIds(List<String> appliedJobIds) {
+        this.appliedJobIds = appliedJobIds;
     }
 
     public User() {

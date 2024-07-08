@@ -62,4 +62,17 @@ public class UserService {
     public Optional<User> getUserByUserId(int id){
         return userRepository.findUserByUserId(id);
     }
+
+    public User applyForJob(int userId, String jobId) {
+        Optional<User> userOptional = userRepository.findUserByUserId(userId);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            if (!user.getAppliedJobIds().contains(jobId)) {
+                user.getAppliedJobIds().add(jobId);
+                userRepository.save(user);
+            }
+            return user;
+        }
+        return null;
+    }
 }

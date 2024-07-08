@@ -114,4 +114,14 @@ public class UserController {
         return ResponseEntity.ok(user);
 
     }
+
+    @PostMapping("/apply/{userId}/{jobId}")
+    public ResponseEntity<User> applyForJob(@PathVariable int userId, @PathVariable String jobId) {
+        User user = userService.applyForJob(userId, jobId);
+        if (user != null) {
+            return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
