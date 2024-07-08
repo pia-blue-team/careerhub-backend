@@ -22,6 +22,7 @@ public class Job {
     private String position;
     private String jobDescription;
     private String companyId;
+    private String location;
     //    @DBRef
 //    private Company company;
 

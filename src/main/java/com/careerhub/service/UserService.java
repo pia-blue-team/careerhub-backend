@@ -17,6 +17,8 @@ public class UserService {
     @Autowired
     private FileStorageService fileStorageService;
 
+
+    // Might be deleted
     public boolean createNewUser(UserRegisterRequest userRegisterRequest){
         User newUser = new User();
 

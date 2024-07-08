@@ -18,6 +18,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    // Might be deleted
     @PostMapping("/register")
     public ResponseEntity<String> RegisterUser(@RequestBody UserRegisterRequest userRegisterRequest){
         boolean isCreated = userService.createNewUser(userRegisterRequest);
@@ -49,7 +50,7 @@ public class UserController {
     }
 
     @PostMapping("/upload-cv")
-    public ResponseEntity<User> uploadCv(
+    public ResponseEntity<User> register(
             @RequestParam("firstName") String firstName,
             @RequestParam("lastName") String lastName,
             @RequestParam("email") String email,
