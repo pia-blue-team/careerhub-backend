@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class UserController {
@@ -63,5 +64,18 @@ public class UserController {
         } catch (IOException e) {
             return ResponseEntity.status(500).body(null);
         }
+    }
+
+    @GetMapping("/userProfile/{userId}")
+    public ResponseEntity<User> getUserProfile(@PathVariable int userId){
+        Optional<User> userOpt = userService.getUserByUserId(userId);
+
+        if (!userOpt.isPresent()){
+            return ResponseEntity.notFound().build();
+        }
+
+        User user = userOpt.get();
+        return ResponseEntity.ok(user);
+
     }
 }

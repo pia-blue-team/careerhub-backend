@@ -10,6 +10,9 @@ import java.time.LocalDate;
 public class User {
     @Id
     private String id;
+
+    private static int userCounter = 0;
+    private int userId;
     private String name;
     private String surname;
     private String email;
@@ -18,11 +21,13 @@ public class User {
 
 
     public User(String name, String surname, String email, String password, String cvPath) {
+        userCounter++;
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.password = password;
         this.cvPath = cvPath;
+        this.userId = userCounter;
     }
 
     public String getId() {
