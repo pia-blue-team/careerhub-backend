@@ -36,4 +36,13 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody User user){
+        User existingUser = userService.getUserByEmail(user.getEmail());
+        if(existingUser != null && user.getPassword().equals(existingUser.getPassword())){
+            return ResponseEntity.ok().body("Login successful");
+        }
+        return ResponseEntity.status(401).body("Invalid email or password");
+    }
 }
