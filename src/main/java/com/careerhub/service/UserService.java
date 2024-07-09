@@ -18,6 +18,9 @@ public class UserService {
     @Autowired
     private FileStorageService fileStorageService;
 
+    @Autowired
+    private MailService mailService;
+
 
     // Might be deleted
     public boolean createNewUser(UserRegisterRequest userRegisterRequest){
@@ -70,6 +73,8 @@ public class UserService {
             if (!user.getAppliedJobIds().contains(jobId)) {
                 user.getAppliedJobIds().add(jobId);
                 userRepository.save(user);
+
+                mailService.sendJobApplicationEmail(user.getEmail(), jobId);
             }
             return user;
         }
