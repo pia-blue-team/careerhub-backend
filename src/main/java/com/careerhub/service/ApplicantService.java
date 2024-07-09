@@ -1,6 +1,7 @@
 package com.careerhub.service;
 
 import com.careerhub.model.Applicants;
+import com.careerhub.model.User;
 import com.careerhub.repository.ApplicantRepository;
 import com.careerhub.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class ApplicantService {
     private ApplicantRepository applicantRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private MailService mailService;
 
     @Autowired
     private FileStorageService fileStorageService;
@@ -50,6 +51,8 @@ public class ApplicantService {
             if (!applicant.getAppliedJobIds().contains(jobId)) {
                 applicant.getAppliedJobIds().add(jobId);
                 applicantRepository.save(applicant);
+
+                mailService.sendJobApplicationEmail(applicant.getEmail(), jobId);
             }
             return applicant;
         }
