@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -51,6 +52,7 @@ public class UserService {
 
         // Create and save user
         User user = new User(firstName, lastName, email, password, aboutUser, currentRole, cvPath);
+        user.setUserId(UUID.randomUUID().toString());
 //        user.setName(firstName);
 //        user.setSurname(lastName);
 //        user.setPassword(password);
@@ -59,11 +61,11 @@ public class UserService {
 
         return userRepository.save(user);
     }
-    public Optional<User> getUserByUserId(int id){
+    public Optional<User> getUserByUserId(String id){
         return userRepository.findUserByUserId(id);
     }
 
-    public User applyForJob(int userId, String jobId) {
+    public User applyForJob(String userId, String jobId) {
         Optional<User> userOptional = userRepository.findUserByUserId(userId);
         if (userOptional.isPresent()) {
             User user = userOptional.get();

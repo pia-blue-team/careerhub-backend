@@ -13,8 +13,7 @@ public class User {
     @Id
     private String id;
 
-    private static int userCounter = 0;
-    private int userId;
+    private String userId;
     private String name;
     private String surname;
     private String email;
@@ -29,8 +28,6 @@ public class User {
 
 
     public User(String name, String surname, String email, String password, String aboutUser, String currentRole, String cvPath) {
-        userCounter++;
-        this.userId = userCounter;
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -40,8 +37,12 @@ public class User {
         this.cvPath = cvPath;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return this.userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getId() {

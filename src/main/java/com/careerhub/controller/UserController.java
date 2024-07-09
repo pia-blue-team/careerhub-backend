@@ -50,7 +50,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Integer> login(@RequestBody UserLoginRequest loginRequest) {
+    public ResponseEntity<String> login(@RequestBody UserLoginRequest loginRequest) {
         User existingUser = userService.getUserByEmail(loginRequest.getEmail());
 
         if (existingUser != null && loginRequest.getPassword().equals(existingUser.getPassword())){
@@ -79,7 +79,7 @@ public class UserController {
     }
 
     @GetMapping("/download-cv/{userId}")
-    public ResponseEntity<Resource> downloadCv(@PathVariable int userId) {
+    public ResponseEntity<Resource> downloadCv(@PathVariable String userId) {
         try {
             // Fetch the user's CV path from the database
             User user = userService.getUserByUserId(userId).get();
@@ -103,7 +103,7 @@ public class UserController {
     }
 
     @GetMapping("/userProfile/{userId}")
-    public ResponseEntity<User> getUserProfile(@PathVariable int userId){
+    public ResponseEntity<User> getUserProfile(@PathVariable String userId){
         Optional<User> userOpt = userService.getUserByUserId(userId);
 
         if (!userOpt.isPresent()){
@@ -116,7 +116,7 @@ public class UserController {
     }
 
     @PostMapping("/apply/{userId}/{jobId}")
-    public ResponseEntity<User> applyForJob(@PathVariable int userId, @PathVariable String jobId) {
+    public ResponseEntity<User> applyForJob(@PathVariable String userId, @PathVariable String jobId) {
         User user = userService.applyForJob(userId, jobId);
         if (user != null) {
             return ResponseEntity.ok(user);
