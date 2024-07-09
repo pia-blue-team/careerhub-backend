@@ -39,7 +39,7 @@ public class UserController {
     public ResponseEntity<String> login(@RequestBody UserLoginRequest loginRequest) {
         User existingUser = userService.getUserByEmail(loginRequest.getEmail());
 
-        if (existingUser != null && loginRequest.getPassword().equals(existingUser.getPassword())){
+        if (existingUser != null && loginRequest.getPassword().equals(existingUser.getPassword())) {
             return ResponseEntity.ok().body(existingUser.getUserId());
         }
 
@@ -49,15 +49,20 @@ public class UserController {
     @PostMapping(value = "/register", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> register(
             @RequestPart String name,
-        @RequestPart String surname,
-        @RequestPart String email,
-    @RequestPart String password,
-    @RequestPart MultipartFile file
+            @RequestPart String surname,
+            @RequestPart String email,
+            @RequestPart String password,
+            @RequestPart MultipartFile file
     ) {
         try {
+            // First, check if there is an existing user sharing the same email.
+            User existingUser = userService.getUserByEmail(email);
+            if (existingUser != null) return ResponseEntity.status(409).body(null);
+
+            // Otherwise, just create a new user.
             String aboutUser = "Lorem ipsum dolor sit amet.";
             String currentRole = "Frontend Developer";
-            User user = userService.saveUserWithCv(name, surname, email, password, aboutUser, currentRole, file);
+            User user = userService.saveUserWithCv(name, surname, password, email, aboutUser, currentRole, file);
             return ResponseEntity.ok(user.getUserId());
         } catch (IOException e) {
             return ResponseEntity.status(500).body(null);
@@ -89,10 +94,10 @@ public class UserController {
     }
 
     @GetMapping("/userProfile/{userId}")
-    public ResponseEntity<User> getUserProfile(@PathVariable String userId){
+    public ResponseEntity<User> getUserProfile(@PathVariable String userId) {
         Optional<User> userOpt = userService.getUserByUserId(userId);
 
-        if (!userOpt.isPresent()){
+        if (!userOpt.isPresent()) {
             return ResponseEntity.notFound().build();
         }
 
