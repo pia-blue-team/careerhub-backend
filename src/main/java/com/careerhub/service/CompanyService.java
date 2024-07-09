@@ -9,12 +9,17 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class CompanyService {
     @Autowired
     private CompanyRepository companyRepository;
+
+    public Optional<Company> getCompanyById(String companyId){
+        return companyRepository.findByCompanyId(companyId);
+    }
 
     public List<Company> findAllCompanies(){
         return companyRepository.findAll();

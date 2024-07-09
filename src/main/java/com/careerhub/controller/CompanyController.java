@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -49,5 +50,17 @@ public class CompanyController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(companiesWithSearchedField);
+    }
+
+    @GetMapping("/getCompany/{companyId}")
+    public ResponseEntity<Company> getCompanyById(@PathVariable String companyId){
+        Optional<Company> companyOpt = companyService.getCompanyById(companyId);
+
+        if (companyOpt.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Company company = companyOpt.get();
+        return ResponseEntity.ok(company);
     }
 }
