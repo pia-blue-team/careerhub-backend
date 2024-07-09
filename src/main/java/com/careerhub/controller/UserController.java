@@ -2,13 +2,12 @@ package com.careerhub.controller;
 
 import com.careerhub.model.User;
 import com.careerhub.request.UserLoginRequest;
-import com.careerhub.request.UserRegisterRequest;
 import com.careerhub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,7 +16,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -26,18 +24,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
-    // Might be deleted
-    @PostMapping("/register")
-    public ResponseEntity<String> RegisterUser(@RequestBody UserRegisterRequest userRegisterRequest){
-        boolean isCreated = userService.createNewUser(userRegisterRequest);
-        if(isCreated){
-            return ResponseEntity.status(HttpStatus.OK).body("User has been created");
-        }
-        else{
-            return ResponseEntity.badRequest().body("There has been an error creating the new User");
-        }
-    }
 
     @GetMapping("/users/{email}")
     public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
@@ -60,19 +46,19 @@ public class UserController {
         return ResponseEntity.status(401).body(null);
     }
 
-    @PostMapping("/upload-cv")
-    public ResponseEntity<User> register(
-            @RequestParam("firstName") String firstName,
-            @RequestParam("lastName") String lastName,
-            @RequestParam("email") String email,
-            @RequestParam("password") String password,
-            @RequestParam("aboutUser") String aboutUser,
-            @RequestParam("currentRole") String currentRole,
-            @RequestParam("cvFile") MultipartFile cvFile) {
-
+    @PostMapping(value = "/register", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<String> register(
+            @RequestPart String name,
+        @RequestPart String surname,
+        @RequestPart String email,
+    @RequestPart String password,
+    @RequestPart MultipartFile file
+    ) {
         try {
-            User user = userService.saveUserWithCv(firstName, lastName, email, password, aboutUser, currentRole, cvFile);
-            return ResponseEntity.ok(user);
+            String aboutUser = "Lorem ipsum dolor sit amet.";
+            String currentRole = "Frontend Developer";
+            User user = userService.saveUserWithCv(name, surname, email, password, aboutUser, currentRole, file);
+            return ResponseEntity.ok(user.getUserId());
         } catch (IOException e) {
             return ResponseEntity.status(500).body(null);
         }
