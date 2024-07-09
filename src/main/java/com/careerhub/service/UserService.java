@@ -42,39 +42,14 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
-    public User findByEmailAndPassword(String email,String password) {
-        return userRepository.findByEmailAndPassword(email,password);
-    }
-
-    public User saveUserWithCv(String firstName, String lastName, String password,String email, String aboutUser, String currentRole, MultipartFile cvFile) throws IOException {
-        // Store the file and get the relative path
-        String cvPath = fileStorageService.storeFile(cvFile, firstName, lastName);
-
-        // Create and save user
-        User user = new User(firstName, lastName, email, password, aboutUser, currentRole, cvPath);
-        user.setUserId(UUID.randomUUID().toString());
-//        user.setName(firstName);
-//        user.setSurname(lastName);
-//        user.setPassword(password);
-//        user.setEmail(email);
-//        user.setCvPath(cvPath);
-
-        return userRepository.save(user);
-    }
     public Optional<User> getUserByUserId(String id){
         return userRepository.findUserByUserId(id);
     }
 
-    public User applyForJob(String userId, String jobId) {
-        Optional<User> userOptional = userRepository.findUserByUserId(userId);
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
-            if (!user.getAppliedJobIds().contains(jobId)) {
-                user.getAppliedJobIds().add(jobId);
-                userRepository.save(user);
-            }
-            return user;
-        }
-        return null;
+
+    public User findByEmailAndPassword(String email,String password) {
+        return userRepository.findByEmailAndPassword(email,password);
     }
+
+
 }
