@@ -68,5 +68,285 @@
     "field": "Entertainment",
     "location": "Los Angeles, CA",
     "companyDescription": "Leading entertainment company producing films, TV shows, and digital content."
+  },
+  {
+    "companyId": "11",
+    "companyName": "BioMed Research Corp.",
+    "field": "Biotechnology",
+    "location": "Cambridge, MA",
+    "companyDescription": "Pioneering biomedical research and development of innovative medical therapies."
+  },
+  {
+    "companyId": "12",
+    "companyName": "EcoBuild Construction",
+    "field": "Construction",
+    "location": "Denver, CO",
+    "companyDescription": "Leader in eco-friendly construction practices and sustainable building designs."
+  },
+  {
+    "companyId": "13",
+    "companyName": "Foodies Delight",
+    "field": "Food & Beverage",
+    "location": "Portland, OR",
+    "companyDescription": "Gourmet food company providing organic and locally-sourced culinary delights."
+  },
+  {
+    "companyId": "14",
+    "companyName": "TechGear Electronics",
+    "field": "Electronics",
+    "location": "San Jose, CA",
+    "companyDescription": "Innovative electronics company specializing in consumer gadgets and devices."
+  },
+  {
+    "companyId": "15",
+    "companyName": "MedEquip Supplies",
+    "field": "Medical Equipment",
+    "location": "Philadelphia, PA",
+    "companyDescription": "Supplier of advanced medical equipment and devices for healthcare providers."
+  },
+  {
+    "companyId": "16",
+    "companyName": "UrbanLiving Real Estate",
+    "field": "Real Estate",
+    "location": "Miami, FL",
+    "companyDescription": "Real estate firm offering residential and commercial property solutions."
+  },
+  {
+    "companyId": "17",
+    "companyName": "CyberShield Security",
+    "field": "Cybersecurity",
+    "location": "Washington, D.C.",
+    "companyDescription": "Providing state-of-the-art cybersecurity solutions and services."
+  },
+  {
+    "companyId": "18",
+    "companyName": "CleanAir Technologies",
+    "field": "Environmental",
+    "location": "Sacramento, CA",
+    "companyDescription": "Developing technologies to improve air quality and reduce pollution."
+  },
+  {
+    "companyId": "19",
+    "companyName": "SmartHomes Inc.",
+    "field": "Home Automation",
+    "location": "Dallas, TX",
+    "companyDescription": "Offering advanced home automation systems and smart home solutions."
+  },
+  {
+    "companyId": "20",
+    "companyName": "FitnessPro Equipment",
+    "field": "Fitness",
+    "location": "Atlanta, GA",
+    "companyDescription": "Leading provider of fitness equipment and wellness solutions."
+  },
+  {
+    "companyId": "21",
+    "companyName": "GreenThumb Landscaping",
+    "field": "Landscaping",
+    "location": "Phoenix, AZ",
+    "companyDescription": "Offering sustainable landscaping and garden design services."
+  },
+  {
+    "companyId": "22",
+    "companyName": "RoboTech Innovations",
+    "field": "Robotics",
+    "location": "Pittsburgh, PA",
+    "companyDescription": "Pioneering advancements in robotics and automation technologies."
+  },
+  {
+    "companyId": "23",
+    "companyName": "FashionForward",
+    "field": "Fashion",
+    "location": "New York, NY",
+    "companyDescription": "Cutting-edge fashion brand known for innovative designs and trends."
+  },
+  {
+    "companyId": "24",
+    "companyName": "SoundWave Audio",
+    "field": "Audio Equipment",
+    "location": "Nashville, TN",
+    "companyDescription": "High-end audio equipment manufacturer for professionals and audiophiles."
+  },
+  {
+    "companyId": "25",
+    "companyName": "BrightFuture Solar",
+    "field": "Renewable Energy",
+    "location": "San Diego, CA",
+    "companyDescription": "Leading provider of solar energy solutions for residential and commercial use."
+  },
+  {
+    "companyId": "26",
+    "companyName": "VirtualRealty VR",
+    "field": "Virtual Reality",
+    "location": "Los Angeles, CA",
+    "companyDescription": "Innovator in virtual reality experiences and VR technology."
+  },
+  {
+    "companyId": "27",
+    "companyName": "AutoDrive Innovations",
+    "field": "Automotive",
+    "location": "Detroit, MI",
+    "companyDescription": "Developing advanced automotive technologies and autonomous driving systems."
+  },
+  {
+    "companyId": "28",
+    "companyName": "PetCare Plus",
+    "field": "Pet Care",
+    "location": "Houston, TX",
+    "companyDescription": "Comprehensive pet care services including grooming, boarding, and veterinary care."
+  },
+  {
+    "companyId": "29",
+    "companyName": "MindWell Therapies",
+    "field": "Mental Health",
+    "location": "Seattle, WA",
+    "companyDescription": "Offering mental health services and therapeutic support for individuals and families."
+  },
+  {
+    "companyId": "30",
+    "companyName": "BuildIt Software",
+    "field": "Software Development",
+    "location": "Austin, TX",
+    "companyDescription": "Custom software development company creating innovative digital solutions."
+  },
+  {
+    "companyId": "31",
+    "companyName": "AquaPure Technologies",
+    "field": "Water Treatment",
+    "location": "Las Vegas, NV",
+    "companyDescription": "Developing advanced water purification and treatment solutions."
+  },
+  {
+    "companyId": "32",
+    "companyName": "UrbanMakers 3D",
+    "field": "3D Printing",
+    "location": "Brooklyn, NY",
+    "companyDescription": "Innovative 3D printing company providing custom manufacturing solutions."
+  },
+  {
+    "companyId": "33",
+    "companyName": "BioFarm Organics",
+    "field": "Agriculture",
+    "location": "Boulder, CO",
+    "companyDescription": "Organic farming company specializing in sustainable agriculture practices."
+  },
+  {
+    "companyId": "34",
+    "companyName": "SkyNet Drones",
+    "field": "Aerospace",
+    "location": "Seattle, WA",
+    "companyDescription": "Leader in drone technology and unmanned aerial systems."
+  },
+  {
+    "companyId": "35",
+    "companyName": "Oceanic Explorers",
+    "field": "Marine Research",
+    "location": "Miami, FL",
+    "companyDescription": "Conducting cutting-edge marine research and conservation efforts."
+  },
+  {
+    "companyId": "36",
+    "companyName": "NextGen AI Solutions",
+    "field": "Artificial Intelligence",
+    "location": "San Francisco, CA",
+    "companyDescription": "Providing advanced AI solutions for various industries."
+  },
+  {
+    "companyId": "37",
+    "companyName": "EcoFriendly Packaging",
+    "field": "Packaging",
+    "location": "Chicago, IL",
+    "companyDescription": "Developing sustainable packaging solutions for businesses."
+  },
+  {
+    "companyId": "38",
+    "companyName": "WellnessFirst",
+    "field": "Health & Wellness",
+    "location": "Austin, TX",
+    "companyDescription": "Offering holistic health and wellness services and products."
+  },
+  {
+    "companyId": "39",
+    "companyName": "CyberLink Networks",
+    "field": "Networking",
+    "location": "Silicon Valley, CA",
+    "companyDescription": "Leading provider of networking and connectivity solutions."
+  },
+  {
+    "companyId": "40",
+    "companyName": "HomeSafe Security",
+    "field": "Security",
+    "location": "Dallas, TX",
+    "companyDescription": "Offering comprehensive home security systems and services."
+  },
+  {
+    "companyId": "41",
+    "companyName": "TechTutor Education",
+    "field": "Education",
+    "location": "Boston, MA",
+    "companyDescription": "Providing technology-based educational resources and tutoring services."
+  },
+  {
+    "companyId": "42",
+    "companyName": "GreenEarth Landscaping",
+    "field": "Landscaping",
+    "location": "Portland, OR",
+    "companyDescription": "Specializing in sustainable and eco-friendly landscaping services."
+  },
+  {
+    "companyId": "43",
+    "companyName": "UrbanTransit Solutions",
+    "field": "Transportation",
+    "location": "New York, NY",
+    "companyDescription": "Innovative transportation solutions for urban environments."
+  },
+  {
+    "companyId": "44",
+    "companyName": "CleanTech Energy",
+    "field": "Energy",
+    "location": "San Diego, CA",
+    "companyDescription": "Developing renewable and clean energy technologies."
+  },
+  {
+    "companyId": "45",
+    "companyName": "FreshFarm Produce",
+    "field": "Food & Beverage",
+    "location": "Salinas, CA",
+    "companyDescription": "Providing fresh, organic produce to local markets and restaurants."
+  },
+  {
+    "companyId": "46",
+    "companyName": "SecureData Solutions",
+    "field": "Data Security",
+    "location": "San Jose, CA",
+    "companyDescription": "Offering comprehensive data security and protection services."
+  },
+  {
+    "companyId": "47",
+    "companyName": "AutoTech Innovations",
+    "field": "Automotive",
+    "location": "Detroit, MI",
+    "companyDescription": "Leading provider of automotive technology and solutions."
+  },
+  {
+    "companyId": "48",
+    "companyName": "BlueSky Aviation",
+    "field": "Aviation",
+    "location": "Denver, CO",
+    "companyDescription": "Offering private and commercial aviation services and solutions."
+  },
+  {
+    "companyId": "49",
+    "companyName": "UrbanRenewal Development",
+    "field": "Real Estate",
+    "location": "Philadelphia, PA",
+    "companyDescription": "Specializing in urban redevelopment and sustainable building projects."
+  },
+  {
+    "companyId": "50",
+    "companyName": "BioGen Pharmaceuticals",
+    "field": "Pharmaceuticals",
+    "location": "Raleigh, NC",
+    "companyDescription": "Research and development of innovative pharmaceutical products."
   }
 ]
