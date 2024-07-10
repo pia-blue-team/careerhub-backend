@@ -1,7 +1,7 @@
 package com.careerhub.service;
 
+import com.careerhub.model.Applicants;
 import com.careerhub.model.Company;
-import com.careerhub.model.User;
 import com.careerhub.repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -17,6 +18,9 @@ import java.util.stream.Collectors;
 public class CompanyService {
     @Autowired
     private CompanyRepository companyRepository;
+
+    @Autowired
+    private ApplicantService applicantService;
 
     public Optional<Company> getCompanyById(String companyId){
         return companyRepository.findByCompanyId(companyId);
@@ -59,5 +63,30 @@ public class CompanyService {
 
     public Company getCompanyByEmail(String email) {
         return companyRepository.findCompanyByCompanyLoginEmail(email);
+    }
+
+    public List<String> getEmailsOfBlockedApplicants(String companyId) throws NoSuchElementException {
+        Company company = companyRepository.findByCompanyId(companyId).orElseThrow();
+        return company.getBlockedUsers().stream()
+                .map(applicantService::getApplicantByUserId)
+                .flatMap(Optional::stream)
+                .map(Applicants::getEmail)
+                .collect(Collectors.toList());
+    }
+
+    public void blockApplicantByEmail(String companyId, String applicantEmail) throws NoSuchElementException {
+        Company company = companyRepository.findByCompanyId(companyId).orElseThrow();
+        Applicants applicant = Optional.ofNullable(applicantService.getApplicantByEmail(applicantEmail)).orElseThrow();
+
+        company.getBlockedUsers().add(applicant.getUserId());
+        companyRepository.save(company);
+    }
+
+    public void unblockApplicantByEmail(String companyId, String applicantEmail) throws NoSuchElementException {
+        Company company = companyRepository.findByCompanyId(companyId).orElseThrow();
+        Applicants applicant = Optional.ofNullable(applicantService.getApplicantByEmail(applicantEmail)).orElseThrow();
+
+        company.getBlockedUsers().remove(applicant.getUserId());
+        companyRepository.save(company);
     }
 }

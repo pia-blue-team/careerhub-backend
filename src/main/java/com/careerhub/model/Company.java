@@ -13,6 +13,8 @@ import java.util.List;
 @NoArgsConstructor
 @Document("companies")
 public class Company {
+    @Id
+    private String id;
     private String companyId;
     private String companyName;
     private String field;

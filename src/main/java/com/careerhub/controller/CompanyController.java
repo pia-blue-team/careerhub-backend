@@ -1,7 +1,8 @@
 package com.careerhub.controller;
 
 import com.careerhub.model.Company;
-import com.careerhub.request.CompanyLoginRequest;
+import com.careerhub.request.BlockApplicantRequest;
+import com.careerhub.request.UnblockApplicantRequest;
 import com.careerhub.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -62,14 +63,33 @@ public class CompanyController {
         return ResponseEntity.ok(company);
     }
 
-    @PostMapping("/company-login")
-    public ResponseEntity<String> login(@RequestBody CompanyLoginRequest loginRequest) {
-        Company existingCompany = companyService.getCompanyByEmail(loginRequest.getEmail());
-
-        if (existingCompany != null && loginRequest.getPassword().equals(existingCompany.getCompanyPassword())) {
-            return ResponseEntity.ok().body(existingCompany.getCompanyId());
+    @PostMapping("/block")
+    public ResponseEntity<Void> blockApplicantByEmail(@RequestBody BlockApplicantRequest request) {
+        try {
+            companyService.blockApplicantByEmail(request.getCompanyId(), request.getApplicantEmail());
+            return ResponseEntity.status(200).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(401).build();
         }
+    }
 
-        return ResponseEntity.status(401).body(null);
+    @PostMapping("/unblock")
+    public ResponseEntity<Void> unblockApplicantByEmail(@RequestBody UnblockApplicantRequest request) {
+        try {
+            companyService.unblockApplicantByEmail(request.getCompanyId(), request.getApplicantEmail());
+            return ResponseEntity.status(200).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(401).build();
+        }
+    }
+
+    @GetMapping("/blacklist")
+    public ResponseEntity<List<String>> getBlacklist(@RequestParam String companyId) {
+        try {
+            List<String> blacklist = companyService.getEmailsOfBlockedApplicants(companyId);
+            return ResponseEntity.ok(blacklist);
+        } catch (Exception e) {
+            return ResponseEntity.status(401).body(null);
+        }
     }
 }
