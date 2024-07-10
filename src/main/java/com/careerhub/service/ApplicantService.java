@@ -60,7 +60,6 @@ public class ApplicantService {
             Applicants applicant = ApplicantOptional.get();
             if (!applicant.getAppliedJobIds().contains(jobId)) {
                 applicant.getAppliedJobIds().add(jobId);
-                applicantRepository.save(applicant);
                 jobService.addApplicantToJob(jobId, applicant.getUserId());
                 mailService.sendJobApplicationEmail(applicant.getEmail(), jobId);
             }
