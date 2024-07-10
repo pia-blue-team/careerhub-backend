@@ -44,14 +44,13 @@ public class JobService {
         return savedJob;
     }
 
-    public Job addApplicantToJob(String jobId, String applicantId) {
+    public void addApplicantToJob(String jobId, String applicantId) {
         Optional<Job> jobOptional = jobRepository.findByJobId(jobId);
         if (jobOptional.isPresent()) {
             Job job = jobOptional.get();
             job.getApplicantIds().add(applicantId);
-            return jobRepository.save(job);
+            jobRepository.save(job);
         }
-        return null;
     }
 
     public List<String> getApplicantsByJobId(String jobId) {

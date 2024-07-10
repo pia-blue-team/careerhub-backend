@@ -15,7 +15,8 @@ import java.util.List;
 @NoArgsConstructor
 @Document("jobs")
 public class Job {
-
+    @Id
+    private String id;
     private String jobId;
     private String jobTitle;
     private LocalDate applicationBeginningDate;
@@ -25,7 +26,4 @@ public class Job {
     private String companyId;
     private String location;
     private List<String> applicantIds;
-    //    @DBRef
-//    private Company company;
-
 }
