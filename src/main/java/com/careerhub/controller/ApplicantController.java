@@ -28,9 +28,6 @@ public class ApplicantController {
     @Autowired
     private ApplicantService applicantService;
 
-    @Autowired
-    private UserService userService;
-
     @PostMapping("/apply/{userId}/{jobId}")
     public ResponseEntity<Applicants> applyForJob(@PathVariable String userId, @PathVariable String jobId) {
         Applicants applicant = applicantService.applyForJob(userId, jobId);
@@ -93,14 +90,12 @@ public class ApplicantController {
 
     @GetMapping("/userProfile/{userId}")
     public ResponseEntity<User> getUserProfile(@PathVariable String userId){
-        Optional<User> userOpt = userService.getUserByUserId(userId);
+        Optional<Applicants> applicantOptional = applicantService.getApplicantByUserId(userId);
 
-        if (!userOpt.isPresent()){
-            return ResponseEntity.notFound().build();
-        }
+        if (applicantOptional.isEmpty()) return ResponseEntity.notFound().build();
 
-        User user = userOpt.get();
-        return ResponseEntity.ok(user);
+        Applicants applicant = applicantOptional.get();
+        return ResponseEntity.ok(applicant);
     }
 
     @PostMapping("/login")
