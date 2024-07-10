@@ -60,4 +60,8 @@ public class CompanyService {
     public Company getCompanyByEmail(String email) {
         return companyRepository.findCompanyByCompanyLoginEmail(email);
     }
+
+    public Company blockedUserIntegration(){
+
+    }
 }

@@ -18,7 +18,7 @@ public class Company {
     private String field;
     private String location;
     private String companyDescription;
-    private List<String> blockedUsers;
+    private List<String> blockedUsersID;
 
     // -----------------------Company Login Credentials ----------------------------------
     private String companyLoginEmail;
