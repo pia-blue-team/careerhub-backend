@@ -1,14 +1,14 @@
 package com.careerhub.controller;
 
 import com.careerhub.model.Company;
+import com.careerhub.model.User;
+import com.careerhub.request.CompanyLoginRequest;
+import com.careerhub.request.UserLoginRequest;
 import com.careerhub.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -63,4 +63,18 @@ public class CompanyController {
         Company company = companyOpt.get();
         return ResponseEntity.ok(company);
     }
+
+    @PostMapping("/company-login")
+    public ResponseEntity<String> login(@RequestBody CompanyLoginRequest loginRequest) {
+        Company existingCompany = companyService.getCompanyByEmail(loginRequest.getCompanyLoginEmail());
+
+        if (existingCompany != null && loginRequest.getCompanyPassword().equals(existingCompany.getCompanyPassword())) {
+            return ResponseEntity.ok().body(existingCompany.getCompanyId());
+        }
+
+        return ResponseEntity.status(401).body(null);
+    }
+
+
+
 }
