@@ -22,11 +22,11 @@ public class CompanyService {
     @Autowired
     private ApplicantService applicantService;
 
-    public Optional<Company> getCompanyById(String companyId){
+    public Optional<Company> getCompanyById(String companyId) {
         return companyRepository.findByCompanyId(companyId);
     }
 
-    public List<Company> findAllCompanies(){
+    public List<Company> findAllCompanies() {
         return companyRepository.findAll();
     }
 
@@ -36,18 +36,18 @@ public class CompanyService {
         return page.getContent();
     }
 
-    public List<Company> searchCompaniesByName(String companyName){
+    public List<Company> searchCompaniesByName(String companyName) {
         return companyRepository.findByCompanyNameContainingIgnoreCase(companyName);
     }
 
-    public List<Company> findCompaniesByField(String field){
+    public List<Company> findCompaniesByField(String field) {
         return companyRepository.findByField(field);
     }
 
-    public List<String> findDistinctFields(){
+    public List<String> findDistinctFields() {
         List<Company> companies = companyRepository.findAll();
         List<String> fields = new ArrayList<>();
-        for (Company c: companies) {
+        for (Company c : companies) {
             fields.add(c.getField());
         }
         return fields;

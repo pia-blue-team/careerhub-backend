@@ -30,16 +30,6 @@ public class ApplicantController {
     @Autowired
     private ApplicantService applicantService;
 
-    @PostMapping("/apply/{userId}/{jobId}")
-    public ResponseEntity<Applicants> applyForJob(@PathVariable String userId, @PathVariable String jobId) {
-        Applicants applicant = applicantService.applyForJob(userId, jobId);
-        if (applicant != null) {
-            return ResponseEntity.ok(applicant);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
     @GetMapping("/download-cv/{id}")
     public ResponseEntity<Resource> downloadCv(@PathVariable String id) {
         try {
@@ -109,15 +99,5 @@ public class ApplicantController {
         }
 
         return ResponseEntity.status(401).body(null);
-    }
-
-    @GetMapping("/{userId}/getAppliedJobs")
-    public ResponseEntity<List<Job>> getAppliedJobs(@PathVariable String userId){
-        try {
-            List<Job> appliedJobs = applicantService.getAppliedJobs(userId);
-            return ResponseEntity.ok(appliedJobs);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
     }
 }

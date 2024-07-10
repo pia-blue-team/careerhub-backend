@@ -20,12 +20,6 @@ public class ApplicantService {
     private ApplicantRepository applicantRepository;
 
     @Autowired
-    private MailService mailService;
-
-    @Autowired
-    private JobService jobService;
-
-    @Autowired
     private FileStorageService fileStorageService;
 
     public Optional<Applicants> getApplicantByUserId(String id) {
@@ -50,37 +44,5 @@ public class ApplicantService {
 
     public Applicants getApplicantByEmail(String email) {
         return applicantRepository.findByEmail(email);
-    }
-
-    public Applicants applyForJob(String userId, String jobId) {
-        Optional<Applicants> ApplicantOptional = applicantRepository.findByUserId(userId);
-        if (ApplicantOptional.isPresent()) {
-            Applicants applicant = ApplicantOptional.get();
-            if (!applicant.getAppliedJobIds().contains(jobId)) {
-                applicant.getAppliedJobIds().add(jobId);
-                jobService.addApplicantToJob(jobId, applicant.getUserId());
-                mailService.sendJobApplicationEmail(applicant.getEmail(), jobId);
-            }
-            return applicant;
-        }
-        return null;
-    }
-
-    public List<Job> getAppliedJobs(String userId){
-        Optional<Applicants> applicantOpt = applicantRepository.findByUserId(userId);
-        if (applicantOpt.isEmpty()) {
-            throw new RuntimeException("User not found");
-        }
-        Applicants applicant = applicantOpt.get();
-        List<String> appliedJobIds = applicant.getAppliedJobIds();
-        List<Job> jobs = new ArrayList<>();
-        for (String jobId: appliedJobIds){
-            Optional<Job> jobOpt = jobService.getJobById(jobId);
-            if (!jobOpt.isPresent()){
-                throw new RuntimeException("Job not found");
-            }
-            jobs.add(jobOpt.get());
-        }
-        return jobs;
     }
 }

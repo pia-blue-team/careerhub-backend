@@ -22,11 +22,11 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
-    public Optional<User> getUserByUserId(String id){
+    public Optional<User> getUserByUserId(String id) {
         return userRepository.findUserByUserId(id);
     }
 
-    public User findByEmailAndPassword(String email,String password) {
-        return userRepository.findByEmailAndPassword(email,password);
+    public User findByEmailAndPassword(String email, String password) {
+        return userRepository.findByEmailAndPassword(email, password);
     }
 }

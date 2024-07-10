@@ -1,10 +1,13 @@
 package com.careerhub.controller;
 
+import com.careerhub.model.Applicants;
 import com.careerhub.model.Company;
 import com.careerhub.model.CustomCompanyJobsResponse;
 import com.careerhub.model.Job;
+import com.careerhub.service.CompanyService;
 import com.careerhub.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +20,18 @@ import java.util.Optional;
 public class JobController {
     @Autowired
     private JobService jobService;
+    @Autowired
+    private CompanyService companyService;
+
+    @PostMapping("/apply/{userId}/{jobId}")
+    public ResponseEntity<Void> applyForJob(@PathVariable String userId, @PathVariable String jobId) {
+        try {
+            jobService.applyForJob(userId, jobId);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(401).build();
+        }
+    }
 
     @PostMapping("/createJob")
     public ResponseEntity<Job> createJob(@RequestBody Job job) {
@@ -47,7 +62,7 @@ public class JobController {
     @GetMapping("/jobs/{companyId}")
     public ResponseEntity<CustomCompanyJobsResponse> getJobsByCompanyId(@PathVariable String companyId){
         List<Job> jobsOfCompany = jobService.getJobsByCompanyId(companyId);
-        Optional<Company> companyOpt = jobService.getCompanyById(companyId);
+        Optional<Company> companyOpt = companyService.getCompanyById(companyId);
         //System.out.println(companyOpt);
 
         if (companyOpt.isEmpty()) {
@@ -69,5 +84,15 @@ public class JobController {
 
         Job job = jobOpt.get();
         return ResponseEntity.ok(job);
+    }
+
+    @GetMapping("/{userId}/getAppliedJobs")
+    public ResponseEntity<List<Job>> getAppliedJobs(@PathVariable String userId){
+        try {
+            List<Job> appliedJobs = jobService.getAppliedJobs(userId);
+            return ResponseEntity.ok(appliedJobs);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 }
