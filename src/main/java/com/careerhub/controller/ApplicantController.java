@@ -40,16 +40,17 @@ public class ApplicantController {
         }
     }
 
-    @GetMapping("/download-cv/{userId}")
-    public ResponseEntity<Resource> downloadCv(@PathVariable String userId) {
+    @GetMapping("/download-cv/{id}")
+    public ResponseEntity<Resource> downloadCv(@PathVariable String id) {
         try {
             // Fetch the user's CV path from the database
-            Applicants applicant = (Applicants) userService.getUserByUserId(userId).get();
+            Optional<Applicants> optionalApplicants = applicantService.getApplicantByUserId(id);
 
+            if (optionalApplicants.isEmpty()) return ResponseEntity.notFound().build();
 
-            if (applicant == null || applicant.getCvPath() == null) {
-                return ResponseEntity.notFound().build();
-            }
+            Applicants applicant = optionalApplicants.get();
+
+            if (applicant.getCvPath() == null) return ResponseEntity.notFound().build();
 
             Path filePath = Paths.get(applicant.getCvPath());
             Resource resource = new UrlResource(filePath.toUri());

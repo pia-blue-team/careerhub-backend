@@ -1,9 +1,7 @@
 package com.careerhub.service;
 
 import com.careerhub.model.Applicants;
-import com.careerhub.model.User;
 import com.careerhub.repository.ApplicantRepository;
-import com.careerhub.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,6 +21,10 @@ public class ApplicantService {
 
     @Autowired
     private FileStorageService fileStorageService;
+
+    public Optional<Applicants> getApplicantByUserId(String id) {
+        return applicantRepository.findByUserId(id);
+    }
 
     public Applicants saveApplicantWithCv(String firstName, String lastName, String password, String email, String aboutUser, String currentRole, MultipartFile cvFile) throws IOException {
         // Store the file and get the relative path
