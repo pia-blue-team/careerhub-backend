@@ -3,15 +3,13 @@ package com.careerhub.service;
 import com.careerhub.model.Applicants;
 import com.careerhub.model.Company;
 import com.careerhub.model.Job;
-import com.careerhub.repository.CompanyRepository;
 import com.careerhub.repository.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -88,5 +86,28 @@ public class JobService {
             jobs.add(jobOpt.get());
         }
         return jobs;
+    }
+
+    public ResponseEntity<Job> apply(String jobId, String userId){
+        Optional<Job> job = jobRepository.findByJobId(jobId);
+
+        if(job.isEmpty()){
+            throw new RuntimeException("Job not found");
+        }
+        String companyId = job.get().getCompanyId();
+        Optional<Company> company = companyService.getCompanyById(companyId);
+
+        if(company.isEmpty()){
+            throw new RuntimeException("company not found");
+        }
+        List<String> blockedUsersID = company.get().getBlockedUsers();
+
+        if(blockedUsersID.contains(userId)){
+            throw new RuntimeException("This user has been blocked therefore cannot apply...");
+        }
+
+        applyForJob(userId,jobId);
+
+        return null;
     }
 }

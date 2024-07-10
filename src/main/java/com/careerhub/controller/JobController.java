@@ -1,10 +1,10 @@
 package com.careerhub.controller;
 
-import com.careerhub.model.Applicants;
 import com.careerhub.model.Company;
 import com.careerhub.model.CustomCompanyJobsResponse;
 import com.careerhub.model.Job;
 import com.careerhub.service.CompanyService;
+import com.careerhub.request.JobRequest;
 import com.careerhub.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -86,13 +86,19 @@ public class JobController {
         return ResponseEntity.ok(job);
     }
 
+
     @GetMapping("/{userId}/getAppliedJobs")
-    public ResponseEntity<List<Job>> getAppliedJobs(@PathVariable String userId){
+    public ResponseEntity<List<Job>> getAppliedJobs(@PathVariable String userId) {
         try {
             List<Job> appliedJobs = jobService.getAppliedJobs(userId);
             return ResponseEntity.ok(appliedJobs);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+    }
+
+    @PostMapping("/apply-check")
+    public Job applyAndCheckBlocked(@RequestBody JobRequest jobRequest){
+        return jobService.apply(jobRequest.getJobId(), jobRequest.getUserId()).getBody();
     }
 }
