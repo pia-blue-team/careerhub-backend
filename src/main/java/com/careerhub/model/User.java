@@ -15,7 +15,6 @@ import java.util.List;
 @NoArgsConstructor
 @Document("users")
 public class User {
-
     @Id
     private String id;
     private String userId;

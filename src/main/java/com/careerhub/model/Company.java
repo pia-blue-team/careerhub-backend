@@ -18,5 +18,8 @@ public class Company {
     private String field;
     private String location;
     private String companyDescription;
-    private List<String> blockedUsers;
+    //private List<String> blockedUsers;
+    private List<String> jobIds;
+    private String companyLoginEmail;
+    private String companyPassword;
 }

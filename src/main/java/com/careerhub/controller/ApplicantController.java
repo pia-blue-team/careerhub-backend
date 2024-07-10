@@ -1,13 +1,17 @@
 package com.careerhub.controller;
 
 import com.careerhub.model.Applicants;
+import com.careerhub.model.Job;
 import com.careerhub.model.User;
+import com.careerhub.request.UserLoginRequest;
 import com.careerhub.service.ApplicantService;
+import com.careerhub.service.JobService;
 import com.careerhub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,6 +22,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -26,9 +31,6 @@ public class ApplicantController {
 
     @Autowired
     private ApplicantService applicantService;
-
-    @Autowired
-    private UserService userService;
 
     @PostMapping("/apply/{userId}/{jobId}")
     public ResponseEntity<Applicants> applyForJob(@PathVariable String userId, @PathVariable String jobId) {
@@ -40,16 +42,17 @@ public class ApplicantController {
         }
     }
 
-    @GetMapping("/download-cv/{userId}")
-    public ResponseEntity<Resource> downloadCv(@PathVariable String userId) {
+    @GetMapping("/download-cv/{id}")
+    public ResponseEntity<Resource> downloadCv(@PathVariable String id) {
         try {
             // Fetch the user's CV path from the database
-            Applicants applicant = (Applicants) userService.getUserByUserId(userId).get();
+            Optional<Applicants> optionalApplicants = applicantService.getApplicantByUserId(id);
 
+            if (optionalApplicants.isEmpty()) return ResponseEntity.notFound().build();
 
-            if (applicant == null || applicant.getCvPath() == null) {
-                return ResponseEntity.notFound().build();
-            }
+            Applicants applicant = optionalApplicants.get();
+
+            if (applicant.getCvPath() == null) return ResponseEntity.notFound().build();
 
             Path filePath = Paths.get(applicant.getCvPath());
             Resource resource = new UrlResource(filePath.toUri());
@@ -91,15 +94,32 @@ public class ApplicantController {
 
     @GetMapping("/userProfile/{userId}")
     public ResponseEntity<User> getUserProfile(@PathVariable String userId){
-        Optional<User> userOpt = userService.getUserByUserId(userId);
+        Optional<Applicants> applicantOptional = applicantService.getApplicantByUserId(userId);
 
-        if (!userOpt.isPresent()){
-            return ResponseEntity.notFound().build();
-        }
+        if (applicantOptional.isEmpty()) return ResponseEntity.notFound().build();
 
-        User user = userOpt.get();
-        return ResponseEntity.ok(user);
-
+        Applicants applicant = applicantOptional.get();
+        return ResponseEntity.ok(applicant);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody UserLoginRequest loginRequest) {
+        Applicants existingApplicant = applicantService.getApplicantByEmail(loginRequest.getEmail());
+
+        if (existingApplicant != null && loginRequest.getPassword().equals(existingApplicant.getPassword())) {
+            return ResponseEntity.ok().body(existingApplicant.getUserId());
+        }
+
+        return ResponseEntity.status(401).body(null);
+    }
+
+    @GetMapping("/{userId}/getAppliedJobs")
+    public ResponseEntity<List<Job>> getAppliedJobs(@PathVariable String userId){
+        try {
+            List<Job> appliedJobs = applicantService.getAppliedJobs(userId);
+            return ResponseEntity.ok(appliedJobs);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 }

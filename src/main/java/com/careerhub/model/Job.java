@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -23,6 +24,7 @@ public class Job {
     private String jobDescription;
     private String companyId;
     private String location;
+    private List<String> applicantIds;
     //    @DBRef
 //    private Company company;
 

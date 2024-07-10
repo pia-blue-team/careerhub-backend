@@ -55,4 +55,7 @@ public class CompanyService {
                 .distinct()
                 .collect(Collectors.toList());
     }
+    public Company getCompanyByEmail(String email) {
+        return companyRepository.findCompanyByCompanyLoginEmail(email);
+    }
 }

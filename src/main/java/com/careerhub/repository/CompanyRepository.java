@@ -24,4 +24,6 @@ public interface CompanyRepository extends MongoRepository<Company, String> {
 
     @Query(value = "{}", fields = "{ 'field': 1 }")
     List<Company> findDistinctByField();
+
+    Company findCompanyByCompanyLoginEmail(String email);
 }
