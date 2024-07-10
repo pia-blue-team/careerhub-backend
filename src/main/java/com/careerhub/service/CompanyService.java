@@ -55,4 +55,30 @@ public class CompanyService {
                 .distinct()
                 .collect(Collectors.toList());
     }
+    public boolean isUserBlacklistedByCompany(String companyId, String userId) {
+        Optional<Company> companyOptional = companyRepository.findByCompanyId(companyId);
+        if (companyOptional.isPresent()) {
+            List<String> blacklistedUsers = companyOptional.get().getBlacklistedUsers();
+            return blacklistedUsers.contains(userId);
+
+        }
+        return false;
+    }
+    public void addUserToUserBlocklist(String companyId, String userId) {
+        Company companyOptional = companyRepository.findByCompanyId(companyId).orElse(null);
+
+
+        List<String> blacklistedUsers = companyOptional.getBlacklistedUsers();
+        if (blacklistedUsers == null) {
+            blacklistedUsers = new ArrayList<>();
+        }
+        if (!blacklistedUsers.contains(userId)) {
+            blacklistedUsers.add(userId);
+            companyOptional.setBlacklistedUsers(blacklistedUsers);
+            companyRepository.save(companyOptional);
+        } else {
+            throw new RuntimeException("The user is already on the blocklist for this company.");
+            }
+
+    }
 }

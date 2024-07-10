@@ -13,10 +13,12 @@ import java.util.List;
 @NoArgsConstructor
 @Document("companies")
 public class Company {
+    @Id
+    private String id;
     private String companyId;
     private String companyName;
     private String field;
     private String location;
     private String companyDescription;
-    private List<String> blockedUsers;
+    private List<String> blacklistedUsers;
 }

@@ -1,6 +1,7 @@
 package com.careerhub.service;
 
 import com.careerhub.model.Applicants;
+import com.careerhub.model.Job;
 import com.careerhub.repository.ApplicantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,11 @@ public class ApplicantService {
 
     @Autowired
     private FileStorageService fileStorageService;
+
+    @Autowired
+    private CompanyService companyService;
+    @Autowired
+    private JobService jobService;
 
     public Optional<Applicants> getApplicantByUserId(String id) {
         return applicantRepository.findByUserId(id);
@@ -46,10 +52,23 @@ public class ApplicantService {
         return applicantRepository.findByEmail(email);
     }
 
-    public Applicants applyForJob(String userId, String jobId) {
-        Optional<Applicants> ApplicantOptional = applicantRepository.findById(userId);
-        if (ApplicantOptional.isPresent()) {
-            Applicants applicant = ApplicantOptional.get();
+    public Applicants applyForJob(String applicantId, String jobId) {
+        Optional<Applicants> applicantOptional = applicantRepository.findById(applicantId);
+        if (applicantOptional.isPresent()) {
+            Applicants applicant = applicantOptional.get();
+            Optional<Job> job=jobService.getJobById(jobId);
+            String companyId = job.get().getCompanyId();
+
+            if (companyId == null) {
+                return null;
+            }
+
+            if (companyService.isUserBlacklistedByCompany(companyId, applicantId)) {
+                // Kullanıcı blocklist'te ise "blocked" mesajı döndür
+                System.out.println("User with ID " + applicantId + " is blocked by the company with ID " + companyId);
+                return null;
+            }
+
             if (!applicant.getAppliedJobIds().contains(jobId)) {
                 applicant.getAppliedJobIds().add(jobId);
                 applicantRepository.save(applicant);

@@ -4,6 +4,7 @@ import com.careerhub.model.Applicants;
 import com.careerhub.model.User;
 import com.careerhub.request.UserLoginRequest;
 import com.careerhub.service.ApplicantService;
+import com.careerhub.service.CompanyService;
 import com.careerhub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -30,14 +31,29 @@ public class ApplicantController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private CompanyService companyService;
 
-    @PostMapping("/apply/{userId}/{jobId}")
-    public ResponseEntity<Applicants> applyForJob(@PathVariable String userId, @PathVariable String jobId) {
-        Applicants applicant = applicantService.applyForJob(userId, jobId);
+    @PostMapping("/apply/{applicantId}/{jobId}")
+    public ResponseEntity<Applicants> applyForJob(@PathVariable String applicantId, @PathVariable String jobId) {
+        Applicants applicant = applicantService.applyForJob(applicantId, jobId);
         if (applicant != null) {
             return ResponseEntity.ok(applicant);
         } else {
             return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/{companyId}/blocklist/{userId}")
+    public ResponseEntity<String> addToUserBlocklist(
+            @PathVariable String companyId,
+            @PathVariable String userId
+    ) {
+        try {
+            companyService.addUserToUserBlocklist(companyId, userId);
+            return ResponseEntity.ok("User successfully added to the blocklist for company with id: " + companyId);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
