@@ -17,4 +17,5 @@ public class EmailController {
         emailService.sendSimpleEmail(to, subject, body);
         return"Email sent successfully";
     }
+
 }
