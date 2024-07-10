@@ -4,7 +4,6 @@ import com.careerhub.model.Applicants;
 import com.careerhub.model.User;
 import com.careerhub.request.UserLoginRequest;
 import com.careerhub.service.ApplicantService;
-import com.careerhub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;

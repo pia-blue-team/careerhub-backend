@@ -1,9 +1,7 @@
 package com.careerhub.controller;
 
 import com.careerhub.model.Company;
-import com.careerhub.model.User;
 import com.careerhub.request.CompanyLoginRequest;
-import com.careerhub.request.UserLoginRequest;
 import com.careerhub.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -66,9 +64,9 @@ public class CompanyController {
 
     @PostMapping("/company-login")
     public ResponseEntity<String> login(@RequestBody CompanyLoginRequest loginRequest) {
-        Company existingCompany = companyService.getCompanyByEmail(loginRequest.getCompanyLoginEmail());
+        Company existingCompany = companyService.getCompanyByEmail(loginRequest.getEmail());
 
-        if (existingCompany != null && loginRequest.getCompanyPassword().equals(existingCompany.getCompanyPassword())) {
+        if (existingCompany != null && loginRequest.getPassword().equals(existingCompany.getCompanyPassword())) {
             return ResponseEntity.ok().body(existingCompany.getCompanyId());
         }
 
