@@ -19,11 +19,7 @@ public class Company {
     private String location;
     private String companyDescription;
     private List<String> blockedUsers;
-
-    // -----------------------Company Login Credentials ----------------------------------
+    private List<String> jobIds;
     private String companyLoginEmail;
     private String companyPassword;
-
-
-
 }

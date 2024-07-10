@@ -1,6 +1,7 @@
 package com.careerhub.controller;
 
 import com.careerhub.model.Applicants;
+import com.careerhub.model.Job;
 import com.careerhub.model.User;
 import com.careerhub.request.UserLoginRequest;
 import com.careerhub.service.ApplicantService;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -106,5 +109,15 @@ public class ApplicantController {
         }
 
         return ResponseEntity.status(401).body(null);
+    }
+
+    @GetMapping("/{userId}/getAppliedJobs")
+    public ResponseEntity<List<Job>> getAppliedJobs(@PathVariable String userId){
+        try {
+            List<Job> appliedJobs = applicantService.getAppliedJobs(userId);
+            return ResponseEntity.ok(appliedJobs);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 }
