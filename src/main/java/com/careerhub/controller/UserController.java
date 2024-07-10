@@ -23,15 +23,4 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
-
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody UserLoginRequest loginRequest) {
-        User existingUser = userService.getUserByEmail(loginRequest.getEmail());
-
-        if (existingUser != null && loginRequest.getPassword().equals(existingUser.getPassword())) {
-            return ResponseEntity.ok().body(existingUser.getUserId());
-        }
-
-        return ResponseEntity.status(401).body(null);
-    }
 }

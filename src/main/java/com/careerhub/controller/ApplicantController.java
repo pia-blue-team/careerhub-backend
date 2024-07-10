@@ -2,6 +2,7 @@ package com.careerhub.controller;
 
 import com.careerhub.model.Applicants;
 import com.careerhub.model.User;
+import com.careerhub.request.UserLoginRequest;
 import com.careerhub.service.ApplicantService;
 import com.careerhub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,7 +101,16 @@ public class ApplicantController {
 
         User user = userOpt.get();
         return ResponseEntity.ok(user);
-
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody UserLoginRequest loginRequest) {
+        Applicants existingApplicant = applicantService.getApplicantByEmail(loginRequest.getEmail());
+
+        if (existingApplicant != null && loginRequest.getPassword().equals(existingApplicant.getPassword())) {
+            return ResponseEntity.ok().body(existingApplicant.getUserId());
+        }
+
+        return ResponseEntity.status(401).body(null);
+    }
 }
