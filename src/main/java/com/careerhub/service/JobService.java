@@ -18,13 +18,16 @@ public class JobService {
     @Autowired
     private CompanyService companyService;
 
+    @Autowired
+    private CompanyRepository companyRepository;
+
     public List<Job> getJobsByCompanyId(String companyId){
         return jobRepository.findByCompanyId(companyId);
     }
 
     public Optional<Company> getCompanyById(String companyId) {
 
-        return companyService.getCompanyById(companyId);
+        return companyRepository.findByCompanyId(companyId);
     }
 
     public Optional<Job> getJobById(String jobId){
@@ -34,7 +37,7 @@ public class JobService {
     public Job createJob(Job job) {
         Job savedJob = jobRepository.save(job);
 
-        Optional<Company> companyOptional = companyService.getCompanyById(job.getCompanyId());
+        Optional<Company> companyOptional = companyRepository.findByCompanyId(job.getCompanyId());
         if (companyOptional.isPresent()) {
             Company company = companyOptional.get();
             company.getJobIds().add(savedJob.getJobId());
