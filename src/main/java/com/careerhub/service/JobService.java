@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class JobService {
@@ -109,5 +107,42 @@ public class JobService {
         applyForJob(userId,jobId);
 
         return null;
+    }
+
+    public Job acceptAndDecline(String jobId, String userId, Boolean isAccepted) throws RuntimeException{
+        Job job = jobRepository.findByJobId(jobId).orElseThrow();
+        Company company = companyService.getCompanyById(job.getCompanyId()).orElseThrow();
+        Applicants applicant = applicantService.getApplicantByUserId(userId).orElseThrow();
+
+        List<String> applicantIds = Optional.ofNullable(job.getApplicantIds()).orElse(Collections.emptyList());
+        List<String> appliedJobIds = Optional.ofNullable(applicant.getAppliedJobIds()).orElse(Collections.emptyList());
+
+        if(applicantIds.contains(userId)){
+            applicantIds.remove(userId);
+            //appliedJobIds.remove(jobId);
+
+//            if (!applicantIds.isEmpty()){
+//                job.getApplicantIds().remove(userId);
+//            }
+//            if (!appliedJobIds.isEmpty()){
+//                applicant.getAppliedJobIds().remove(jobId);
+//            }
+
+            if(isAccepted){
+                String format = "Your job application for %s at %s has been successfully confirmed. Thanks for your interest!";
+                String emailBody = String.format(format, job.getJobTitle(), company.getCompanyName());
+                emailService.sendSimpleEmail(applicant.getEmail(), "Your Job Application results are here!", emailBody);
+            }
+            else {
+                String format = "Your job application for %s at %s has been declined. Thanks for your interest";
+                String emailBody = String.format(format, job.getJobTitle(), company.getCompanyName());
+                emailService.sendSimpleEmail(applicant.getEmail(), "Your Job Application results are here!", emailBody);
+            }
+        }
+
+        //applicant.setAppliedJobIds(applicantIds);
+        applicantService.saveApplicant(applicant);
+
+        return job;
     }
 }

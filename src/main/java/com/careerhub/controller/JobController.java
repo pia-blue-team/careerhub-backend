@@ -3,6 +3,7 @@ package com.careerhub.controller;
 import com.careerhub.model.Company;
 import com.careerhub.model.CustomCompanyJobsResponse;
 import com.careerhub.model.Job;
+import com.careerhub.request.AcceptOrDeclineRequest;
 import com.careerhub.service.CompanyService;
 import com.careerhub.request.JobRequest;
 import com.careerhub.service.JobService;
@@ -17,6 +18,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/careerhub")
+@CrossOrigin
 public class JobController {
     @Autowired
     private JobService jobService;
@@ -101,4 +103,11 @@ public class JobController {
     public Job applyAndCheckBlocked(@RequestBody JobRequest jobRequest){
         return jobService.apply(jobRequest.getJobId(), jobRequest.getUserId()).getBody();
     }
+
+    @PostMapping("/acceptOrDecline")
+    public Job acceptOrDecline(@RequestBody AcceptOrDeclineRequest acceptOrDeclineRequest){
+        Job job = jobService.acceptAndDecline(acceptOrDeclineRequest.getJobId(), acceptOrDeclineRequest.getUserId(), acceptOrDeclineRequest.getIsAccepted());
+        return job;
+    }
+
 }

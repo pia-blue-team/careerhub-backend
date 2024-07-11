@@ -42,4 +42,8 @@ public class ApplicantService {
     public Applicants getApplicantByEmail(String email) {
         return applicantRepository.findByEmail(email);
     }
+
+    public void saveApplicant(Applicants applicants) {
+        applicantRepository.save(applicants);
+    }
 }

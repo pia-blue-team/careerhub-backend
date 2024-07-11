@@ -89,4 +89,6 @@ public class CompanyService {
         company.getBlockedUsers().remove(applicant.getUserId());
         companyRepository.save(company);
     }
+
+
 }

@@ -13,5 +13,7 @@ public interface JobRepository extends MongoRepository<Job, String> {
 
     Optional<Job> findByJobId(String jobId);
 
+    Optional<Job> findByJobTitle(String jobTitle);
+
 }
 
