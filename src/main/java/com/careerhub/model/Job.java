@@ -1,6 +1,5 @@
 package com.careerhub.model;
 
-import com.careerhub.status.ApplicantStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,5 +27,4 @@ public class Job {
     private String companyId;
     private String location;
     private List<String> applicantIds;
-    private List<ApplicantStatus> applicantStatuses = new ArrayList<>();
 }

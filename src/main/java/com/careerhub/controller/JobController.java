@@ -100,23 +100,4 @@ public class JobController {
             return ResponseEntity.status(400).body(e.getMessage());
         }
     }
-    @PostMapping("/jobs/{jobId}/accept/{applicantId}")
-    public ResponseEntity<String> acceptApplicant(@PathVariable String jobId, @PathVariable String applicantId) {
-        try {
-            jobService.acceptApplicant(jobId, applicantId);
-            return ResponseEntity.ok("Applicant accepted successfully");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
-    }
-
-    @PostMapping("/jobs/{jobId}/reject/{applicantId}")
-    public ResponseEntity<String> rejectApplicant(@PathVariable String jobId, @PathVariable String applicantId) {
-        try {
-            jobService.rejectApplicant(jobId, applicantId);
-            return ResponseEntity.ok("Applicant rejected successfully");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
-    }
 }
