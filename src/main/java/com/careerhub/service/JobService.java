@@ -82,6 +82,11 @@ public class JobService {
         applicant.setAppliedJobIds(jobIds);
         applicantService.saveApplicant(applicant);
 
+        List<String> applicantIds = Optional.ofNullable(job.getApplicantIds()).orElse(new ArrayList<>());
+        applicantIds.add(applicantId);
+        job.setApplicantIds(applicantIds);
+        jobRepository.save(job);
+
         String format = "Your job application for %s at %s has been successfully submitted. Thanks for your interest!";
         String emailBody = String.format(format, job.getJobTitle(), company.getCompanyName());
         emailService.sendSimpleEmail(applicant.getEmail(), "Job Application Successful", emailBody);
