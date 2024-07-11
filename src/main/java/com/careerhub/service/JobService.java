@@ -41,7 +41,9 @@ public class JobService {
         Optional<Company> companyOptional = companyService.getCompanyById(job.getCompanyId());
         if (companyOptional.isPresent()) {
             Company company = companyOptional.get();
-            company.getJobIds().add(savedJob.getJobId());
+            List<String> jobIds = Optional.of(company.getJobIds()).orElse(Collections.emptyList());
+            jobIds.add(savedJob.getJobId());
+            company.setJobIds(jobIds);
         }
         return savedJob;
     }
