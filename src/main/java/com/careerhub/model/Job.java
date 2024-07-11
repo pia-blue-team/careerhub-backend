@@ -1,5 +1,6 @@
 package com.careerhub.model;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,7 +23,11 @@ public class Job {
     private LocalDate applicationBeginningDate;
     private LocalDate applicationDeadline;
     private String position;
+
+    @NotBlank
     private String jobDescription;
+
+    @NotBlank
     private String companyId;
     private String location;
     private List<String> applicantIds;

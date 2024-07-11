@@ -1,5 +1,9 @@
 package com.careerhub.model;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,9 +22,19 @@ public class User {
     @Id
     private String id;
     private String userId;
+
+    @NotBlank
     private String name;
+
+    @NotBlank
     private String surname;
+
+    @Email
+    @NotBlank
     private String email;
+
+    @Size(min=8, max = 12)
+    @Pattern(regexp = "(?=\\S+$)")
     private String password;
 
 
