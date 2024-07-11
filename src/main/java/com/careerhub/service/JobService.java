@@ -5,6 +5,7 @@ import com.careerhub.model.Applicants;
 import com.careerhub.model.Company;
 import com.careerhub.model.Job;
 import com.careerhub.repository.JobRepository;
+import com.careerhub.status.ApplicantStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -140,5 +141,48 @@ public class JobService {
         applyForJob(userId,jobId);
 
         return null;
+    }
+    public void acceptApplicant(String jobId, String applicantId) {
+        Optional<Job> jobOptional = jobRepository.findByJobId(jobId);
+        if (jobOptional.isPresent()) {
+            Job job = jobOptional.get();
+            List<ApplicantStatus> statuses = job.getApplicantStatuses();
+            if (statuses == null) {
+                statuses = new ArrayList<>();
+            }
+            for (ApplicantStatus status : statuses) {
+                if (status.getApplicantId().equals(applicantId)) {
+                    status.setStatus("ACCEPTED");
+                    job.setApplicantStatuses(statuses);
+                    jobRepository.save(job);
+                    return;
+                }
+            }
+            statuses.add(new ApplicantStatus(applicantId, "ACCEPTED"));
+            job.setApplicantStatuses(statuses);
+            jobRepository.save(job);
+        }
+    }
+
+    public void rejectApplicant(String jobId, String applicantId) {
+        Optional<Job> jobOptional = jobRepository.findByJobId(jobId);
+        if (jobOptional.isPresent()) {
+            Job job = jobOptional.get();
+            List<ApplicantStatus> statuses = job.getApplicantStatuses();
+            if (statuses == null) {
+                statuses = new ArrayList<>();
+            }
+            for (ApplicantStatus status : statuses) {
+                if (status.getApplicantId().equals(applicantId)) {
+                    status.setStatus("REJECTED");
+                    job.setApplicantStatuses(statuses);
+                    jobRepository.save(job);
+                    return;
+                }
+            }
+            statuses.add(new ApplicantStatus(applicantId, "REJECTED"));
+            job.setApplicantStatuses(statuses);
+            jobRepository.save(job);
+        }
     }
 }
