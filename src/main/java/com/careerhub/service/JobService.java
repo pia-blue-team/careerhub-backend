@@ -5,6 +5,7 @@ import com.careerhub.model.Applicants;
 import com.careerhub.model.Company;
 import com.careerhub.model.Job;
 import com.careerhub.repository.JobRepository;
+import com.careerhub.request.CreateJobRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -34,10 +35,17 @@ public class JobService {
         return jobRepository.findByJobId(jobId);
     }
 
-    public Job createJob(Job job) {
+    public Job createJob(CreateJobRequest request) {
+        Job job = new Job();
+        job.setJobTitle(request.getJobTitle());
+        job.setPosition(request.getPosition());
+        job.setJobDescription(request.getJobDescription());
+        job.setLocation(request.getLocation());
+        job.setCompanyId(request.getCompanyId());
+
         Job savedJob = jobRepository.save(job);
 
-        Optional<Company> companyOptional = companyService.getCompanyById(job.getCompanyId());
+        Optional<Company> companyOptional = companyService.getCompanyById(request.getCompanyId());
         if (companyOptional.isPresent()) {
             Company company = companyOptional.get();
             company.getJobIds().add(savedJob.getJobId());

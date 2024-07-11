@@ -23,18 +23,18 @@ public class User {
     private String id;
     private String userId;
 
-    @NotBlank
+    @NotBlank(message = "Name cannot be blank")
     private String name;
 
-    @NotBlank
+    @NotBlank(message = "Surname cannot be blank")
     private String surname;
 
-    @Email
-    @NotBlank
+    @NotBlank(message = "Email cannot be blank")
+    @Email(message = "Invalid email format")
     private String email;
 
-    @Size(min=8, max = 12)
-    @Pattern(regexp = "(?=\\S+$)")
+    @NotBlank(message = "Password cannot be blank")
+    @Size(min = 8, max = 12, message = "Password must be between 8 and 12 characters")
     private String password;
 
 
