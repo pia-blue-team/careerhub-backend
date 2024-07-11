@@ -1,6 +1,8 @@
 package com.careerhub.controller;
 
 import com.careerhub.model.Company;
+import com.careerhub.repository.CompanyRepository;
+import com.careerhub.request.CompanyLoginRequest;
 import com.careerhub.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,8 @@ import java.util.*;
 public class CompanyController {
     @Autowired
     private CompanyService companyService;
+    @Autowired
+    private CompanyRepository companyRepository;
 
     @GetMapping("/companies")
     public ResponseEntity<List<Company>> getAllCompanies(){
@@ -84,4 +88,14 @@ public class CompanyController {
         }
     }
 
+    @PostMapping("/company-login")
+    public ResponseEntity<String> login(@RequestBody CompanyLoginRequest loginRequest) {
+        Company existingCompany = companyRepository.findCompanyByCompanyLoginEmail(loginRequest.getEmail());
+
+        if (existingCompany != null && loginRequest.getPassword().equals(existingCompany.getCompanyPassword())) {
+            return ResponseEntity.ok().body(existingCompany.getCompanyId());
+        }
+
+        return ResponseEntity.status(401).body(null);
+    }
 }
