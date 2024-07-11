@@ -96,4 +96,22 @@ public class CompanyService {
                 .map(Applicants::getEmail)
                 .collect(Collectors.toList());
     }
+
+    public void removeUserFromUserBlocklist(String companyId, String applicantEmail) throws RuntimeException {
+        Company company = companyRepository.findByCompanyId(companyId).orElseThrow();
+        Applicants applicant = Optional.of(applicantService.getApplicantByEmail(applicantEmail)).orElseThrow();
+        List<String> blacklistedUsers = company.getBlacklistedUsers();
+
+        if (blacklistedUsers == null) {
+            throw new RuntimeException("No blocklist exists for this company.");
+        }
+
+        if (blacklistedUsers.contains(applicant.getUserId())) {
+            blacklistedUsers.remove(applicant.getUserId());
+            company.setBlacklistedUsers(blacklistedUsers);
+            companyRepository.save(company);
+        } else {
+            throw new RuntimeException("The user is not on the blocklist for this company.");
+        }
+    }
 }

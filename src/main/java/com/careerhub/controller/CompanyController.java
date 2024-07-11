@@ -61,13 +61,13 @@ public class CompanyController {
         return ResponseEntity.ok(company);
     }
 
-    @PostMapping("/{companyId}/blocklist/{userId}")
+    @PostMapping("/{companyId}/blocklist/{applicantEmail}")
     public ResponseEntity<String> addToUserBlocklist(
             @PathVariable String companyId,
-            @PathVariable String userId
+            @PathVariable String applicantEmail
     ) {
         try {
-            companyService.addUserToUserBlocklist(companyId, userId);
+            companyService.addUserToUserBlocklist(companyId, applicantEmail);
             return ResponseEntity.ok("User successfully added to the blocklist for company with id: " + companyId);
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -81,6 +81,19 @@ public class CompanyController {
             return ResponseEntity.ok(blocklist);
         } catch (Exception e) {
             return ResponseEntity.status(401).body(null);
+        }
+    }
+
+    @PostMapping("/{companyId}/unblocklist/{applicantEmail}")
+    public ResponseEntity<String> removeFromUserBlocklist(
+            @PathVariable String companyId,
+            @PathVariable String applicantEmail
+    ) {
+        try {
+            companyService.removeUserFromUserBlocklist(companyId, applicantEmail);
+            return ResponseEntity.ok("User successfully removed from the blocklist for company with id: " + companyId);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
