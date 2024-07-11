@@ -4,6 +4,9 @@ import com.careerhub.model.Applicants;
 import com.careerhub.model.User;
 import com.careerhub.request.UserLoginRequest;
 import com.careerhub.service.ApplicantService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -56,16 +59,16 @@ public class ApplicantController {
 
     @PostMapping(value = "/register", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> register(
-            @RequestPart String name,
-            @RequestPart String surname,
-            @RequestPart String email,
-            @RequestPart String password,
+            @Valid @RequestPart(name = "name") String name,
+            @Valid @RequestPart(name = "surname") String surname,
+            @Valid @RequestPart(name = "email") @Email(message = "Invalid email format") String email,
+            @Valid @RequestPart(name = "password") @Size(min = 8, max = 12, message = "Password must be between 8 and 12 characters") String password,
             @RequestPart MultipartFile file
     ) {
         try {
             // First, check if there is an existing user sharing the same email.
             Applicants existingApplicant = applicantService.getApplicantByEmail(email);
-            if (existingApplicant != null) return ResponseEntity.status(409).body(null);
+            if (existingApplicant != null) return ResponseEntity.status(409).body("This user is already registered!");
 
             // Otherwise, just create a new user.
             String aboutUser = "Lorem ipsum dolor sit amet.";

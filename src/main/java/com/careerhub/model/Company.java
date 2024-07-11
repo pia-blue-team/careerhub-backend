@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -20,7 +21,7 @@ public class Company {
     private String field;
     private String location;
     private String companyDescription;
-    private List<String> jobIds;
+    private List<String> jobIds = new ArrayList<>();
     private String companyLoginEmail;
     private String companyPassword;
     private List<String> blacklistedUsers;

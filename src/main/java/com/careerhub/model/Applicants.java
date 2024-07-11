@@ -1,5 +1,6 @@
 package com.careerhub.model;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,8 +15,13 @@ import java.util.List;
 @Document("Applicants")
 public class Applicants extends User{
 
+    @NotBlank(message = "CV path cannot be blank")
     private String cvPath;
+
+    @NotBlank(message = "About user cannot be blank")
     private String aboutUser;
+
+    @NotBlank(message = "Current role cannot be blank")
     private String currentRole;
     private List<String> appliedJobIds = new ArrayList<>(); // personal list for jobs that have been applied by the applicant.
 
