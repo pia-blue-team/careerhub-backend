@@ -90,4 +90,24 @@ public class JobController {
             return ResponseEntity.status(400).body(e.getMessage());
         }
     }
+
+    @PostMapping("/jobs/{jobId}/accept/{applicantId}")
+    public ResponseEntity<String> acceptJobApplication(@PathVariable String jobId, @PathVariable String applicantId) {
+        try {
+            jobService.acceptJobApplication(jobId, applicantId);
+            return ResponseEntity.ok("Application accepted.");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/jobs/{jobId}/reject/{applicantId}")
+    public ResponseEntity<String> rejectJobApplication(@PathVariable String jobId, @PathVariable String applicantId) {
+        try {
+            jobService.rejectJobApplication(jobId, applicantId);
+            return ResponseEntity.ok("Application rejected.");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
 }

@@ -132,4 +132,60 @@ public class JobService {
 
         return null;
     }
+
+    public void acceptJobApplication(String jobId, String applicantId) {
+        Optional<Job> jobOptional = jobRepository.findByJobId(jobId);
+        if (jobOptional.isPresent()) {
+            Job job = jobOptional.get();
+            if (job.getApplicantIds().contains(applicantId)) {
+                // Remove the job from the applicant's applied job ids list
+                removeJobFromApplicant(applicantId, jobId);
+                // Remove the applicant from the job's applicant ids list
+                job.getApplicantIds().remove(applicantId);
+                jobRepository.save(job);
+                sendApplicationStatusEmail(applicantId, job, "accepted");
+            } else {
+                throw new RuntimeException("Applicant has not applied for this job.");
+            }
+        } else {
+            throw new RuntimeException("Job not found.");
+        }
+    }
+
+    public void rejectJobApplication(String jobId, String applicantId) {
+        Optional<Job> jobOptional = jobRepository.findByJobId(jobId);
+        if (jobOptional.isPresent()) {
+            Job job = jobOptional.get();
+            if (job.getApplicantIds().contains(applicantId)) {
+                // Remove the job from the applicant's applied job ids list
+                removeJobFromApplicant(applicantId, jobId);
+                // Remove the applicant from the job's applicant ids list
+                job.getApplicantIds().remove(applicantId);
+                jobRepository.save(job);
+                sendApplicationStatusEmail(applicantId, job, "rejected");
+            } else {
+                throw new RuntimeException("Applicant has not applied for this job.");
+            }
+        } else {
+            throw new RuntimeException("Job not found.");
+        }
+    }
+
+    private void sendApplicationStatusEmail(String applicantId, Job job, String status) {
+        Applicants applicant = applicantService.getApplicantByUserId(applicantId).orElseThrow();
+        String companyId = job.getCompanyId();
+        Company company = companyService.getCompanyById(companyId).orElseThrow();
+
+        String emailBody = String.format("Your application for %s at %s has been %s.",
+                job.getJobTitle(), company.getCompanyName(), status);
+        emailService.sendSimpleEmail(applicant.getEmail(), "Job Application Status", emailBody);
+    }
+
+    private void removeJobFromApplicant(String applicantId, String jobId) {
+        Applicants applicant = applicantService.getApplicantByUserId(applicantId).orElseThrow();
+        List<String> appliedJobIds = applicant.getAppliedJobIds();
+        appliedJobIds.remove(jobId);
+        applicant.setAppliedJobIds(appliedJobIds);
+        applicantService.saveApplicant(applicant);
+    }
 }
