@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -74,7 +75,9 @@ public class JobService {
         if (applicant.getAppliedJobIds().contains(jobId))
             throw new RuntimeException("Job is already applied");
 
-        applicant.getAppliedJobIds().add(jobId);
+        List<String> jobIds = Optional.of(applicant.getAppliedJobIds()).orElse(Collections.emptyList());
+        jobIds.add(jobId);
+        applicant.setAppliedJobIds(jobIds);
         applicantService.saveApplicant(applicant);
 
         String format = "Your job application for %s at %s has been successfully submitted. Thanks for your interest!";

@@ -64,7 +64,12 @@ public class CompanyService {
         Optional<Company> companyOptional = companyRepository.findByCompanyId(companyId);
         if (companyOptional.isPresent()) {
             List<String> blacklistedUsers = companyOptional.get().getBlacklistedUsers();
-            return blacklistedUsers.contains(userId);
+
+            if (blacklistedUsers != null) {
+                return blacklistedUsers.contains(userId);
+            } else {
+                return false;
+            }
         }
 
         return false;
