@@ -33,6 +33,16 @@ public class JobController {
         return ResponseEntity.ok(createdJob);
     }
 
+    @DeleteMapping("/deleteJob/{companyId}/{jobId}")
+    public ResponseEntity<String> deleteJob(@PathVariable String companyId, @PathVariable String jobId) {
+        try {
+            jobService.deleteJob(companyId, jobId);
+            return ResponseEntity.ok("Job deleted successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
     @GetMapping("/jobs/{jobId}/applicants")
     public ResponseEntity<List<String>> getApplicantsByJobId(@PathVariable String jobId) {
         List<String> applicants = jobService.getApplicantsByJobId(jobId);

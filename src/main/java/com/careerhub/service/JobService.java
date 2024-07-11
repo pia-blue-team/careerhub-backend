@@ -58,6 +58,20 @@ public class JobService {
         }
         return savedJob;
     }
+    public void deleteJob(String companyId, String jobId) {
+        Optional<Job> jobOptional = jobRepository.findByJobId(jobId);
+        if (jobOptional.isPresent()) {
+            Job job = jobOptional.get();
+
+            if (!job.getCompanyId().equals(companyId)) {
+                throw new RuntimeException("You are not authorized to delete this job.");
+            }
+
+            jobRepository.delete(job);
+        } else {
+            throw new RuntimeException("Job not found with id: " + jobId);
+        }
+    }
 
     public void addApplicantToJob(String jobId, String applicantId) {
         Optional<Job> jobOptional = jobRepository.findByJobId(jobId);
