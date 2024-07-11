@@ -61,7 +61,6 @@ public class CompanyController {
         return ResponseEntity.ok(company);
     }
 
-
     @PostMapping("/{companyId}/blocklist/{userId}")
     public ResponseEntity<String> addToUserBlocklist(
             @PathVariable String companyId,
@@ -74,4 +73,15 @@ public class CompanyController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @GetMapping("/{companyId}/blocklist")
+    public ResponseEntity<List<String>> getBlocklist(@PathVariable String companyId) {
+        try {
+            List<String> blocklist = companyService.getEmailsOfBlockedApplicants(companyId);
+            return ResponseEntity.ok(blocklist);
+        } catch (Exception e) {
+            return ResponseEntity.status(401).body(null);
+        }
+    }
+
 }

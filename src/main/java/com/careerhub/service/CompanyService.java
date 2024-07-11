@@ -18,6 +18,8 @@ import java.util.stream.Collectors;
 public class CompanyService {
     @Autowired
     private CompanyRepository companyRepository;
+    @Autowired
+    private ApplicantService applicantService;
 
     public Optional<Company> getCompanyById(String companyId) {
         return companyRepository.findByCompanyId(companyId);
@@ -68,21 +70,30 @@ public class CompanyService {
         return false;
     }
 
-    public void addUserToUserBlocklist(String companyId, String userId) throws RuntimeException {
+    public void addUserToUserBlocklist(String companyId, String applicantEmail) throws RuntimeException {
         Company company = companyRepository.findByCompanyId(companyId).orElseThrow();
-
+        Applicants applicant = Optional.of(applicantService.getApplicantByEmail(applicantEmail)).orElseThrow();
         List<String> blacklistedUsers = company.getBlacklistedUsers();
 
         if (blacklistedUsers == null) {
             blacklistedUsers = new ArrayList<>();
         }
 
-        if (!blacklistedUsers.contains(userId)) {
-            blacklistedUsers.add(userId);
+        if (!blacklistedUsers.contains(applicant.getUserId())) {
+            blacklistedUsers.add(applicant.getUserId());
             company.setBlacklistedUsers(blacklistedUsers);
             companyRepository.save(company);
         } else {
             throw new RuntimeException("The user is already on the blocklist for this company.");
         }
+    }
+
+    public List<String> getEmailsOfBlockedApplicants(String companyId) throws NoSuchElementException {
+        Company company = companyRepository.findByCompanyId(companyId).orElseThrow();
+        return company.getBlacklistedUsers().stream()
+                .map(applicantService::getApplicantByUserId)
+                .flatMap(Optional::stream)
+                .map(Applicants::getEmail)
+                .collect(Collectors.toList());
     }
 }
