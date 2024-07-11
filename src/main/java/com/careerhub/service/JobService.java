@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class JobService {
@@ -37,6 +38,8 @@ public class JobService {
 
     public Job createJob(CreateJobRequest request) {
         Job job = new Job();
+        job.setJobId(UUID.randomUUID().toString());
+        job.setApplicantIds(new ArrayList<>());
         job.setJobTitle(request.getJobTitle());
         job.setPosition(request.getPosition());
         job.setJobDescription(request.getJobDescription());

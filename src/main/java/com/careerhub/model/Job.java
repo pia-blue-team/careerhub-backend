@@ -35,7 +35,7 @@ public class Job {
     private String position;
 
     @NotBlank(message = "Job description cannot be blank")
-    @Size(min = 15, message = "Job description must be at least 15 characters long")
+    @Size(min = 10, message = "Job description must be at least 15 characters long")
     private String jobDescription;
 
     private String companyId;
