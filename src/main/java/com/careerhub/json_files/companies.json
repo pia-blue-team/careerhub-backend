@@ -348,5 +348,22 @@
     "field": "Pharmaceuticals",
     "location": "Raleigh, NC",
     "companyDescription": "Research and development of innovative pharmaceutical products."
+  },
+  {
+    "companyId": "51",
+    "companyName": "Tech Innovators Inc.",
+    "field": "Technology",
+    "location": "San Francisco, CA",
+    "companyDescription": "Leading tech company specializing in innovative solutions and software development.",
+    "blacklistedUsers": "1"
+  },
+  {
+    "id": "asd",
+    "companyId": "52",
+    "companyName": "Tech Innovators Inc.",
+    "field": "Technology",
+    "location": "San Francisco, CA",
+    "companyDescription": "Leading tech company specializing in innovative solutions and software development.",
+    "blacklistedUsers": "1"
   }
 ]

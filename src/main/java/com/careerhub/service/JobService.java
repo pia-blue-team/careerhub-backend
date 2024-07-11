@@ -1,5 +1,6 @@
 package com.careerhub.service;
 
+import com.careerhub.controller.EmailController;
 import com.careerhub.model.Applicants;
 import com.careerhub.model.Company;
 import com.careerhub.model.Job;
@@ -22,6 +23,8 @@ public class JobService {
     private CompanyService companyService;
     @Autowired
     private EmailService emailService;
+    @Autowired
+    private EmailController email;
 
     public List<Job> getJobsByCompanyId(String companyId){
         return jobRepository.findByCompanyId(companyId);
@@ -56,15 +59,24 @@ public class JobService {
         return jobOptional.map(Job::getApplicantIds).orElse(null);
     }
 
-    public void applyForJob(String userId, String jobId) throws RuntimeException {
-        Applicants applicant = applicantService.getApplicantByUserId(userId).orElseThrow();
-        Job job = jobRepository.findByJobId(jobId).orElseThrow();
-        Company company = companyService.getCompanyById(job.getCompanyId()).orElseThrow();
+    public void applyForJob(String applicantId, String jobId) throws RuntimeException {
+        Applicants applicant = applicantService.getApplicantByUserId(applicantId).orElseThrow();
+        Job job= getJobById(jobId).orElseThrow();
+        String companyId = job.getCompanyId();
+        Company company = companyService.getCompanyById(companyId).orElseThrow();
 
-        if (applicant.getAppliedJobIds().contains(jobId)) throw new RuntimeException("User already applied");
+        if (companyId == null)
+            throw new RuntimeException("Company id is empty");
+
+        if (companyService.isUserBlacklistedByCompany(companyId, applicantId))
+            throw new RuntimeException("The user is blocked by this company");
+
+        if (applicant.getAppliedJobIds().contains(jobId))
+            throw new RuntimeException("Job is already applied");
 
         applicant.getAppliedJobIds().add(jobId);
-        addApplicantToJob(jobId, applicant.getUserId());
+        applicantService.saveApplicant(applicant);
+
         String format = "Your job application for %s at %s has been successfully submitted. Thanks for your interest!";
         String emailBody = String.format(format, job.getJobTitle(), company.getCompanyName());
         emailService.sendSimpleEmail(applicant.getEmail(), "Job Application Successful", emailBody);
@@ -80,7 +92,7 @@ public class JobService {
         List<Job> jobs = new ArrayList<>();
         for (String jobId : appliedJobIds) {
             Optional<Job> jobOpt = jobRepository.findByJobId(jobId);
-            if (!jobOpt.isPresent()) {
+            if (jobOpt.isEmpty()) {
                 throw new RuntimeException("Job not found");
             }
             jobs.add(jobOpt.get());
@@ -100,7 +112,7 @@ public class JobService {
         if(company.isEmpty()){
             throw new RuntimeException("company not found");
         }
-        List<String> blockedUsersID = company.get().getBlockedUsers();
+        List<String> blockedUsersID = company.get().getBlacklistedUsers();
 
         if(blockedUsersID.contains(userId)){
             throw new RuntimeException("This user has been blocked therefore cannot apply...");

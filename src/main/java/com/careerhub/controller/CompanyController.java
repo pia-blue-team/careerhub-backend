@@ -1,8 +1,6 @@
 package com.careerhub.controller;
 
 import com.careerhub.model.Company;
-import com.careerhub.request.BlockApplicantRequest;
-import com.careerhub.request.UnblockApplicantRequest;
 import com.careerhub.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -63,33 +61,17 @@ public class CompanyController {
         return ResponseEntity.ok(company);
     }
 
-    @PostMapping("/block")
-    public ResponseEntity<Void> blockApplicantByEmail(@RequestBody BlockApplicantRequest request) {
-        try {
-            companyService.blockApplicantByEmail(request.getCompanyId(), request.getApplicantEmail());
-            return ResponseEntity.status(200).build();
-        } catch (Exception e) {
-            return ResponseEntity.status(401).build();
-        }
-    }
 
-    @PostMapping("/unblock")
-    public ResponseEntity<Void> unblockApplicantByEmail(@RequestBody UnblockApplicantRequest request) {
+    @PostMapping("/{companyId}/blocklist/{userId}")
+    public ResponseEntity<String> addToUserBlocklist(
+            @PathVariable String companyId,
+            @PathVariable String userId
+    ) {
         try {
-            companyService.unblockApplicantByEmail(request.getCompanyId(), request.getApplicantEmail());
-            return ResponseEntity.status(200).build();
-        } catch (Exception e) {
-            return ResponseEntity.status(401).build();
-        }
-    }
-
-    @GetMapping("/blacklist")
-    public ResponseEntity<List<String>> getBlacklist(@RequestParam String companyId) {
-        try {
-            List<String> blacklist = companyService.getEmailsOfBlockedApplicants(companyId);
-            return ResponseEntity.ok(blacklist);
-        } catch (Exception e) {
-            return ResponseEntity.status(401).body(null);
+            companyService.addUserToUserBlocklist(companyId, userId);
+            return ResponseEntity.ok("User successfully added to the blocklist for company with id: " + companyId);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 }

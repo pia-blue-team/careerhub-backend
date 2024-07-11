@@ -19,9 +19,6 @@ public class CompanyService {
     @Autowired
     private CompanyRepository companyRepository;
 
-    @Autowired
-    private ApplicantService applicantService;
-
     public Optional<Company> getCompanyById(String companyId) {
         return companyRepository.findByCompanyId(companyId);
     }
@@ -61,32 +58,31 @@ public class CompanyService {
                 .collect(Collectors.toList());
     }
 
-    public Company getCompanyByEmail(String email) {
-        return companyRepository.findCompanyByCompanyLoginEmail(email);
+    public boolean isUserBlacklistedByCompany(String companyId, String userId) {
+        Optional<Company> companyOptional = companyRepository.findByCompanyId(companyId);
+        if (companyOptional.isPresent()) {
+            List<String> blacklistedUsers = companyOptional.get().getBlacklistedUsers();
+            return blacklistedUsers.contains(userId);
+        }
+
+        return false;
     }
 
-    public List<String> getEmailsOfBlockedApplicants(String companyId) throws NoSuchElementException {
+    public void addUserToUserBlocklist(String companyId, String userId) throws RuntimeException {
         Company company = companyRepository.findByCompanyId(companyId).orElseThrow();
-        return company.getBlockedUsers().stream()
-                .map(applicantService::getApplicantByUserId)
-                .flatMap(Optional::stream)
-                .map(Applicants::getEmail)
-                .collect(Collectors.toList());
-    }
 
-    public void blockApplicantByEmail(String companyId, String applicantEmail) throws NoSuchElementException {
-        Company company = companyRepository.findByCompanyId(companyId).orElseThrow();
-        Applicants applicant = Optional.ofNullable(applicantService.getApplicantByEmail(applicantEmail)).orElseThrow();
+        List<String> blacklistedUsers = company.getBlacklistedUsers();
 
-        company.getBlockedUsers().add(applicant.getUserId());
-        companyRepository.save(company);
-    }
+        if (blacklistedUsers == null) {
+            blacklistedUsers = new ArrayList<>();
+        }
 
-    public void unblockApplicantByEmail(String companyId, String applicantEmail) throws NoSuchElementException {
-        Company company = companyRepository.findByCompanyId(companyId).orElseThrow();
-        Applicants applicant = Optional.ofNullable(applicantService.getApplicantByEmail(applicantEmail)).orElseThrow();
-
-        company.getBlockedUsers().remove(applicant.getUserId());
-        companyRepository.save(company);
+        if (!blacklistedUsers.contains(userId)) {
+            blacklistedUsers.add(userId);
+            company.setBlacklistedUsers(blacklistedUsers);
+            companyRepository.save(company);
+        } else {
+            throw new RuntimeException("The user is already on the blocklist for this company.");
+        }
     }
 }

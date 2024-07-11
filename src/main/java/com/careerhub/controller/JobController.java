@@ -23,31 +23,11 @@ public class JobController {
     @Autowired
     private CompanyService companyService;
 
-    @PostMapping("/apply/{userId}/{jobId}")
-    public ResponseEntity<Void> applyForJob(@PathVariable String userId, @PathVariable String jobId) {
-        try {
-            jobService.applyForJob(userId, jobId);
-            return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            return ResponseEntity.status(401).build();
-        }
-    }
-
     @PostMapping("/createJob")
     public ResponseEntity<Job> createJob(@RequestBody Job job) {
         Job createdJob = jobService.createJob(job);
         return ResponseEntity.ok(createdJob);
     }
-
-//    @PostMapping("/jobs/{jobId}/applicants/{applicantId}")
-//    public ResponseEntity<Job> addApplicantToJob(@PathVariable String jobId, @PathVariable String applicantId) {
-//        Job updatedJob = jobService.addApplicantToJob(jobId, applicantId);
-//        if (updatedJob != null) {
-//            return ResponseEntity.ok(updatedJob);
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
 
     @GetMapping("/jobs/{jobId}/applicants")
     public ResponseEntity<List<String>> getApplicantsByJobId(@PathVariable String jobId) {
@@ -86,7 +66,6 @@ public class JobController {
         return ResponseEntity.ok(job);
     }
 
-
     @GetMapping("/{userId}/getAppliedJobs")
     public ResponseEntity<List<Job>> getAppliedJobs(@PathVariable String userId) {
         try {
@@ -100,5 +79,15 @@ public class JobController {
     @PostMapping("/apply-check")
     public Job applyAndCheckBlocked(@RequestBody JobRequest jobRequest){
         return jobService.apply(jobRequest.getJobId(), jobRequest.getUserId()).getBody();
+    }
+
+    @PostMapping("/apply/{applicantId}/{jobId}")
+    public ResponseEntity<String> applyForJob(@PathVariable String applicantId, @PathVariable String jobId) {
+        try {
+            jobService.applyForJob(applicantId, jobId);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body(e.getMessage());
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.careerhub.service;
 
 import com.careerhub.model.Applicants;
+import com.careerhub.model.Job;
 import com.careerhub.repository.ApplicantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,5 +42,9 @@ public class ApplicantService {
 
     public Applicants getApplicantByEmail(String email) {
         return applicantRepository.findByEmail(email);
+    }
+
+    public void saveApplicant(Applicants applicants) {
+        applicantRepository.save(applicants);
     }
 }
