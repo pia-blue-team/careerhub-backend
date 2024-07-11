@@ -67,13 +67,13 @@ public class JobService {
         Company company = companyService.getCompanyById(companyId).orElseThrow();
 
         if (companyId == null)
-            throw new RuntimeException("Company id is empty");
+            throw new RuntimeException("Unexpected error: Company ID is empty.");
 
         if (companyService.isUserBlacklistedByCompany(companyId, applicantId))
-            throw new RuntimeException("The user is blocked by this company");
+            throw new RuntimeException("You are not allowed to apply for this company since you are blocked.");
 
         if (applicant.getAppliedJobIds().contains(jobId))
-            throw new RuntimeException("Job is already applied");
+            throw new RuntimeException("You have already applied for this job.");
 
         List<String> jobIds = Optional.of(applicant.getAppliedJobIds()).orElse(Collections.emptyList());
         jobIds.add(jobId);
