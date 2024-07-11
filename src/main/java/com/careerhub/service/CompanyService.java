@@ -77,7 +77,7 @@ public class CompanyService {
 
     public void addUserToUserBlocklist(String companyId, String applicantEmail) throws RuntimeException {
         Company company = companyRepository.findByCompanyId(companyId).orElseThrow();
-        Applicants applicant = Optional.of(applicantService.getApplicantByEmail(applicantEmail)).orElseThrow();
+        Applicants applicant = Optional.ofNullable(applicantService.getApplicantByEmail(applicantEmail)).orElseThrow();
         List<String> blacklistedUsers = company.getBlacklistedUsers();
 
         if (blacklistedUsers == null) {

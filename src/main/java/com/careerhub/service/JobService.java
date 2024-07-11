@@ -41,7 +41,7 @@ public class JobService {
         Optional<Company> companyOptional = companyService.getCompanyById(job.getCompanyId());
         if (companyOptional.isPresent()) {
             Company company = companyOptional.get();
-            List<String> jobIds = Optional.of(company.getJobIds()).orElse(Collections.emptyList());
+            List<String> jobIds = Optional.ofNullable(company.getJobIds()).orElse(new ArrayList<>());
             jobIds.add(savedJob.getJobId());
             company.setJobIds(jobIds);
         }
@@ -77,7 +77,7 @@ public class JobService {
         if (applicant.getAppliedJobIds().contains(jobId))
             throw new RuntimeException("You have already applied for this job.");
 
-        List<String> jobIds = Optional.of(applicant.getAppliedJobIds()).orElse(Collections.emptyList());
+        List<String> jobIds = Optional.of(applicant.getAppliedJobIds()).orElse(new ArrayList<>());
         jobIds.add(jobId);
         applicant.setAppliedJobIds(jobIds);
         applicantService.saveApplicant(applicant);
