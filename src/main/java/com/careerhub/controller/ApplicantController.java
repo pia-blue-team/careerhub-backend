@@ -4,6 +4,10 @@ import com.careerhub.model.Applicants;
 import com.careerhub.model.User;
 import com.careerhub.request.UserLoginRequest;
 import com.careerhub.service.ApplicantService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
@@ -23,6 +27,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 
+@Tag(name = "Applicant Management", description = "APIs for managing applicant operations")
 @Controller
 @RequestMapping("/careerhub")
 public class ApplicantController {
@@ -30,6 +35,12 @@ public class ApplicantController {
     @Autowired
     private ApplicantService applicantService;
 
+    @Operation(summary = "Download CV", description = "Downloads the CV of an applicant by their user ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "CV downloaded successfully"),
+            @ApiResponse(responseCode = "404", description = "Applicant or CV not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
     @GetMapping("/download-cv/{id}")
     public ResponseEntity<Resource> downloadCv(@PathVariable String id) {
         try {
@@ -57,6 +68,12 @@ public class ApplicantController {
         }
     }
 
+    @Operation(summary = "Register applicant", description = "Registers a new applicant with their details and CV")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Applicant registered successfully"),
+            @ApiResponse(responseCode = "409", description = "Applicant already registered"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
     @PostMapping(value = "/register", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> register(
             @Valid @RequestPart(name = "name") String name,
@@ -80,6 +97,11 @@ public class ApplicantController {
         }
     }
 
+    @Operation(summary = "Get user profile by user ID", description = "Retrieves the profile of a user by their user ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User profile retrieved successfully"),
+            @ApiResponse(responseCode = "404", description = "User not found")
+    })
     @GetMapping("/userProfile/{userId}")
     public ResponseEntity<User> getUserProfile(@PathVariable String userId){
         Optional<Applicants> applicantOptional = applicantService.getApplicantByUserId(userId);
@@ -90,6 +112,11 @@ public class ApplicantController {
         return ResponseEntity.ok(applicant);
     }
 
+    @Operation(summary = "Applicant login", description = "Authenticates an applicant using email and password")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Login successful"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized access")
+    })
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody UserLoginRequest loginRequest) {
         Applicants existingApplicant = applicantService.getApplicantByEmail(loginRequest.getEmail());
